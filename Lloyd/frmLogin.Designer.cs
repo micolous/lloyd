@@ -31,7 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtAccessCard = new System.Windows.Forms.TextBox();
             this.btnQuit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -68,16 +68,19 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Please scan your access card to continue.";
             // 
-            // textBox1
+            // txtAccessCard
             // 
-            this.textBox1.Location = new System.Drawing.Point(21, 173);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '#';
-            this.textBox1.Size = new System.Drawing.Size(356, 30);
-            this.textBox1.TabIndex = 0;
+            this.txtAccessCard.AcceptsReturn = true;
+            this.txtAccessCard.Location = new System.Drawing.Point(21, 173);
+            this.txtAccessCard.Name = "txtAccessCard";
+            this.txtAccessCard.PasswordChar = '#';
+            this.txtAccessCard.Size = new System.Drawing.Size(356, 30);
+            this.txtAccessCard.TabIndex = 0;
+            this.txtAccessCard.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAccessCard_KeyPress);
             // 
             // btnQuit
             // 
+            this.btnQuit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnQuit.Location = new System.Drawing.Point(21, 298);
             this.btnQuit.Name = "btnQuit";
             this.btnQuit.Size = new System.Drawing.Size(76, 38);
@@ -91,10 +94,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnQuit;
             this.ClientSize = new System.Drawing.Size(667, 352);
             this.ControlBox = false;
             this.Controls.Add(this.btnQuit);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtAccessCard);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
@@ -105,7 +109,6 @@
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lloyd - Login";
-            this.Load += new System.EventHandler(this.frmLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -117,7 +120,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtAccessCard;
         private System.Windows.Forms.Button btnQuit;
     }
 }

@@ -13,6 +13,16 @@ namespace Lloyd
         public string name;
         public string access_key;
         public bool admin;
+        public long last_access;
+
+        public DateTime LastAccess
+        {
+            get
+            {
+                return (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).AddSeconds(last_access);
+            }
+        }
+
     }
 
 
@@ -173,6 +183,20 @@ namespace Lloyd
             return u;
         }
 
+        public User LoginUser(string access_key)
+        {
+            User u = GetUserByAccessKey(access_key);
+            if (u != null)
+            {
+                Open();
+                SQLiteCommand cmd = new SQLiteCommand("UPDATE users SET last_access = strftime('%s', 'now') WHERE id = :id", conn);
+                cmd.Parameters.Add(new SQLiteParameter("id", (object)(u.id)));
+                cmd.ExecuteNonQuery();
+                Close();
+            }
+
+            return u;
+        }
 
         public void CreateUser(string user, string access_key, bool admin)
         {
@@ -193,6 +217,7 @@ namespace Lloyd
                 cmd.Parameters.Add(new SQLiteParameter("access_card", access_key_sha1));
                 cmd.Parameters.Add(new SQLiteParameter("admin", admin));
                 cmd.ExecuteNonQuery();
+                
                 Close();
 
             }
@@ -204,7 +229,7 @@ namespace Lloyd
             lock (conn)
             {
                 Open();
-                SQLiteCommand cmd = new SQLiteCommand("SELECT id, name, admin FROM users", conn);
+                SQLiteCommand cmd = new SQLiteCommand("SELECT id, name, admin, last_access FROM users", conn);
                 SQLiteDataReader reader = cmd.ExecuteReader();
 
 
@@ -214,6 +239,7 @@ namespace Lloyd
                     u.id = reader.GetInt64(0);
                     u.name = reader.GetString(1);
                     u.admin = reader.GetBoolean(2);
+                    u.last_access = reader.GetInt64(3);
                     lu.Add(u);
                 }
 
