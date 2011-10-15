@@ -14,6 +14,7 @@ namespace Lloyd
         public string access_key;
         public bool admin;
         public long last_access;
+        public bool enabled;
 
         public DateTime LastAccess
         {
@@ -25,13 +26,19 @@ namespace Lloyd
 
     }
 
-
+    /// <summary>
+    /// Database access layer for Lloyd.
+    /// </summary>
     class Database
     {
 
         SQLiteConnection conn;
         bool firstRun = false;
 
+        /// <summary>
+        /// If this is the first time that Lloyd has been run (or more specifically,
+        /// a file/schema was created), then this will be true.
+        /// </summary>
         public bool FirstRun { get { return firstRun; } }
 
 
@@ -82,6 +89,13 @@ namespace Lloyd
                     {
                         success = true;
                     }
+                    else
+                    {
+                        throw new ArgumentException(
+                            "Specified file contains a database that is either not belonging to " +
+                            "Lloyd, or is from a newer version. (expected meta.version == 1)"
+                        );
+                    }
 
                     reader.Close();
                 }
@@ -118,6 +132,7 @@ namespace Lloyd
                         "name varchar, " +
                         "access_card varchar, " +
                         "admin integer default 0, " +
+                        "enabled integer default 1, " +
                         "last_access integer default 0" +
                     ")", conn
                 )).ExecuteNonQuery();
@@ -148,7 +163,7 @@ namespace Lloyd
             {
                 Open();
 
-                SQLiteCommand cmd = new SQLiteCommand("SELECT id, name, admin FROM users WHERE access_card=:access_card LIMIT 1", conn);
+                SQLiteCommand cmd = new SQLiteCommand("SELECT id, name, admin FROM users WHERE enabled=1 AND access_card=:access_card LIMIT 1", conn);
                 cmd.Parameters.Add(new SQLiteParameter("access_card", access_key_sha1));
 
 
@@ -229,7 +244,7 @@ namespace Lloyd
             lock (conn)
             {
                 Open();
-                SQLiteCommand cmd = new SQLiteCommand("SELECT id, name, admin, last_access FROM users", conn);
+                SQLiteCommand cmd = new SQLiteCommand("SELECT id, name, admin, last_access, enabled FROM users", conn);
                 SQLiteDataReader reader = cmd.ExecuteReader();
 
 
@@ -240,6 +255,7 @@ namespace Lloyd
                     u.name = reader.GetString(1);
                     u.admin = reader.GetBoolean(2);
                     u.last_access = reader.GetInt64(3);
+                    u.enabled = reader.GetBoolean(4);
                     lu.Add(u);
                 }
 
@@ -270,7 +286,7 @@ namespace Lloyd
             {
                 Open();
 
-                SQLiteCommand cmd = new SQLiteCommand("UPDATE users SET name = :name WHERE id = :id LIMIT 1", conn);
+                SQLiteCommand cmd = new SQLiteCommand("UPDATE users SET name = :name WHERE id = :id", conn);
                 cmd.Parameters.Add(new SQLiteParameter("id", id));
                 cmd.Parameters.Add(new SQLiteParameter("name", new_name));
                 cmd.ExecuteNonQuery();
@@ -281,18 +297,64 @@ namespace Lloyd
 
         public void ChangeAccessKey(long id, string new_access_key)
         {
+            User u = GetUserByAccessKey(new_access_key);
+
+            if (u != null)
+            {
+                if (u.id == id)
+                {
+                    // then we're just changing to the same access key again,
+                    // do nothing and move along.
+                    return;
+                }
+
+                throw new ArgumentException("That access key is already in use by another user.");
+            }
+
+
             string new_access_key_sha1 = SHA1Sum(new_access_key);
             lock (conn)
             {
                 Open();
 
-                SQLiteCommand cmd = new SQLiteCommand("UPDATE users SET access_card = :access_card WHERE id = :id LIMIT 1", conn);
+                SQLiteCommand cmd = new SQLiteCommand("UPDATE users SET access_card = :access_card WHERE id = :id", conn);
                 cmd.Parameters.Add(new SQLiteParameter("id", id));
                 cmd.Parameters.Add(new SQLiteParameter("access_card", new_access_key_sha1));
                 cmd.ExecuteNonQuery();
 
                 Close();
             }
+        }
+
+        public void SetUserEnabled(long id, bool new_state)
+        {
+            lock (conn)
+            {
+                Open();
+
+                SQLiteCommand cmd = new SQLiteCommand("UPDATE users SET enabled=:enabled WHERE id = :id", conn);
+                cmd.Parameters.Add(new SQLiteParameter("id", id));
+                cmd.Parameters.Add(new SQLiteParameter("enabled", new_state));
+                cmd.ExecuteNonQuery();
+
+                Close();
+            }
+        }
+
+        public void SetUserAdministrator(long id, bool new_admin)
+        {
+            lock (conn)
+            {
+                Open();
+
+                SQLiteCommand cmd = new SQLiteCommand("UPDATE users SET admin=:admin WHERE id = :id", conn);
+                cmd.Parameters.Add(new SQLiteParameter("id", id));
+                cmd.Parameters.Add(new SQLiteParameter("admin", new_admin));
+                cmd.ExecuteNonQuery();
+
+                Close();
+            }
+        
         }
     }
 }

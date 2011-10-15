@@ -10,18 +10,31 @@ namespace Lloyd
 {
     partial class frmDashboard : Form
     {
+        bool admin;
         public frmDashboard(User u)
         {
             InitializeComponent();
 
             lblWelcome.Text = string.Format(lblWelcome.Text, u.name);
 
-            btnUserManager.Enabled = u.admin;
+            admin = u.admin;
+
+            btnUserManager.Enabled = admin;
+            btnUserManager.Visible = admin;
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void btnUserManager_Click(object sender, EventArgs e)
+        {
+            if (admin)
+            {
+                frmUserManager f = new frmUserManager();
+                f.ShowDialog(this);
+            }
         }
     }
 }

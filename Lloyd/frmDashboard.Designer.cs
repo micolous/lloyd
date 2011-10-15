@@ -53,6 +53,7 @@
             this.btnUserManager.TabIndex = 1;
             this.btnUserManager.Text = "&Users";
             this.btnUserManager.UseVisualStyleBackColor = true;
+            this.btnUserManager.Click += new System.EventHandler(this.btnUserManager_Click);
             // 
             // btnLogout
             // 

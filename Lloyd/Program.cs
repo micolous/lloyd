@@ -17,12 +17,24 @@ namespace Lloyd
         {
 
             // create a database connection
-            db = new Database("lloyd.db3");
+            try
+            {
+                db = new Database("lloyd.db3");
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show(
+                    "The database file probably contains data from a newer version of " +
+                    "Lloyd, and is not schema-compatible.  Please upgrade Lloyd.",
+                    "Lloyd", MessageBoxButtons.OK, MessageBoxIcon.Error
+                );
+                return;
+            }
 
             if (db.FirstRun)
             {
                 // first run detected.
-                MessageBox.Show("The initial account's access code is 0000.");
+                MessageBox.Show("New database file created.  The initial account's access code is 0000.");
 
             }
 
