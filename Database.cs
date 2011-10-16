@@ -46,6 +46,8 @@ namespace Lloyd
 
     /// <summary>
     /// Database access layer for Lloyd.
+    /// 
+    /// Note: This library is not thread-safe, call only one thing at a time.  Otherwise it will likely fall over.
     /// </summary>
     public class Database
     {
@@ -59,7 +61,10 @@ namespace Lloyd
         /// </summary>
         public bool FirstRun { get { return firstRun; } }
 
-
+        /// <summary>
+        /// Creates a new connection to a Lloyd database file.  If the file doesn't already exist, it will be created.
+        /// </summary>
+        /// <param name="filename">The path to the database file.</param>
         public Database(string filename)
         {
             SQLiteConnectionStringBuilder csb = new SQLiteConnectionStringBuilder();
@@ -75,17 +80,17 @@ namespace Lloyd
             }
         }
 
-        public void Open()
+        void Open()
         {
             conn.Open();
         }
 
-        public void Close()
+        void Close()
         {
             conn.Close();
         }
 
-        public bool CheckForSchema()
+        bool CheckForSchema()
         {
             bool success = false;
 
@@ -131,7 +136,7 @@ namespace Lloyd
             return success;
         }
 
-        public void CreateSchema()
+        void CreateSchema()
         {
             lock (conn)
             {
@@ -164,7 +169,12 @@ namespace Lloyd
 
         }
 
-        private string SHA1Sum(string input)
+        /// <summary>
+        /// Computes an SHA1 checksum of the input string.
+        /// </summary>
+        /// <param name="input">The string to compute the checksum for.</param>
+        /// <returns>A base16 encoding of the checksum.</returns>
+        string SHA1Sum(string input)
         {
             SHA1 s = SHA1.Create();
             byte[] b = s.ComputeHash(ASCIIEncoding.ASCII.GetBytes(input));
@@ -216,6 +226,13 @@ namespace Lloyd
             return u;
         }
 
+        /// <summary>
+        /// Similar to GetUserByAccessKey, except this also updates the last_access time in the database.
+        /// 
+        /// The object returned will have the user's old last_access time, not the current one.
+        /// </summary>
+        /// <param name="access_key">The user's access key to find.</param>
+        /// <returns>The User associated with that access key, or null if no user exists.</returns>
         public User LoginUser(string access_key)
         {
             User u = GetUserByAccessKey(access_key);
@@ -351,7 +368,7 @@ namespace Lloyd
                 Open();
 
                 SQLiteCommand cmd = new SQLiteCommand("UPDATE users SET enabled=:enabled WHERE id = :id", conn);
-                cmd.Parameters.Add(new SQLiteParameter("id", id)):;
+                cmd.Parameters.Add(new SQLiteParameter("id", id));
                 cmd.Parameters.Add(new SQLiteParameter("enabled", new_state));
                 cmd.ExecuteNonQuery();
 
