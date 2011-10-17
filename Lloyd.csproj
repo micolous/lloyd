@@ -121,10 +121,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="lloyd.png" />
+    <None Include="lloyd.jpg" />
+    <Content Include="README.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="COPYING.txt">

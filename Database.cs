@@ -160,6 +160,36 @@ namespace Lloyd
                     ")", conn
                 )).ExecuteNonQuery();
 
+                (new SQLiteCommand(
+                    "CREATE TABLE beverage (" +
+                        "id integer primary key autoincrement, " +
+                        "name varchar, " +
+                        "volume integer, " +
+                        "percent_alcohol double, " +
+                    ")", conn
+                )).ExecuteNonQuery();
+
+                (new SQLiteCommand(
+                    "CREATE TABLE sku (" +
+                        "id integer primary key autoincrement, " +
+                        "beverage_id integer, " +
+                        "barcode varchar, " +
+                        "quantity integer default 1 " +
+                    ")", conn
+                )).ExecuteNonQuery();
+
+                (new SQLiteCommand(
+                    "CREATE TABLE stock (" +
+                        "id integer primary key autoincrement, " +
+                        "beverage_id integer, " +
+                        "owner_id integer, " +
+                        "cost integer, " +
+                        "added integer default strftime('%s', 'now'), " +
+                        "consumer_id integer default 0, " +
+                        "consumed integer default 0 " +
+                    ")", conn
+                )).ExecuteNonQuery();
+
                 Close();
             }
 

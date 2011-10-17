@@ -33,7 +33,6 @@ namespace Lloyd
         [STAThread]
         static void Main()
         {
-
             // create a database connection
             try
             {
@@ -43,7 +42,8 @@ namespace Lloyd
             {
                 MessageBox.Show(
                     "The database file probably contains data from a newer version of " +
-                    "Lloyd, and is not schema-compatible.  Please upgrade Lloyd.",
+                    "Lloyd, and is not schema-compatible.  Please upgrade Lloyd, or " +
+                    "delete the existing database file.",
                     "Lloyd", MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
                 return;
