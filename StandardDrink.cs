@@ -99,11 +99,34 @@ namespace Lloyd
         /// <returns>A StandardDrink object for the current locale, or null if unknown.</returns>
         public static StandardDrink GetForCurrentLocale()
         {
-            if (cultures.ContainsKey(CultureInfo.CurrentCulture))
-                return cultures[CultureInfo.CurrentCulture];
+            return GetForLocale(CultureInfo.CurrentCulture);
+        }
+
+        /// <summary>
+        /// Gets the StandardDrink associated with the specified locale.
+        /// </summary>
+        /// <param name="ci">The CultureInfo specifying the locale to look up.</param>
+        /// <returns>A StandardDrink object for the specified locale, or null if unknown.</returns>
+        public static StandardDrink GetForLocale(CultureInfo ci)
+        {
+            if (cultures.ContainsKey(ci))
+                return cultures[ci];
 
             // unknown
             return null;
+        }
+
+        /// <summary>
+        /// Returns all supported StandardDrink cultures.
+        /// </summary>
+        public static IEnumerable<StandardDrink> Cultures {
+            get
+            {
+                foreach (var c in cultures.Values)
+                {
+                    yield return c;
+                }
+            }
         }
 
         /// <summary>
@@ -137,6 +160,21 @@ namespace Lloyd
             return standard_drinks * this.alcohol_ml;
         }
 
+        /// <summary>
+        /// Finds the percentage of alcohol in a drink by the number of standard drinks and it's volume.
+        /// </summary>
+        /// <param name="standard_drinks">The number of standard drinks in the beverage.</param>
+        /// <param name="volume_ml">The volume of beverage.</param>
+        /// <returns>The percentage of alcohol by volume in the beverage.</returns>
+        public double PercentAlcoholByStandardDrinkVolume(double standard_drinks, double volume_ml)
+        {
+            return (MillilitresAlcoholByStandardDrinks(standard_drinks) / volume_ml) * 100.0;
+        }
+
+        /// <summary>
+        /// Gets a string representation of the StandardDrink object.
+        /// </summary>
+        /// <returns>A string containing the data in the StandardDrink object.</returns>
         public override string ToString()
         {
             return String.Format("<StandardDrink: alcohol_ml={0}, culture={1}>", this.alcohol_ml, this.culture);
