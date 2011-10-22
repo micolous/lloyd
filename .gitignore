@@ -1,5 +1,4 @@
 *.suo
 bin/
 obj/
-*.Designer.cs
 *.user
