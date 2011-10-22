@@ -41,6 +41,47 @@ namespace Lloyd
                 return (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).AddSeconds(last_access);
             }
         }
+    }
+
+    public class Beverage
+    {
+        long id;
+        bool new_item = true;
+        public long ID { get { return id;  } }
+        public string Name { get; set; }
+        public long Volume { get; set; }
+        public double PercentAlcohol { get; set; }
+        public bool Enabled { get; set; }
+        public bool NewItem { get { return new_item; } }
+        public double StandardDrinks
+        {
+            get
+            {
+                StandardDrink sd = StandardDrink.GetForCurrentLocale();
+                return sd.StandardDrinksByPercent(PercentAlcohol, Volume);
+            }
+        }
+
+        public double VolumeAlcohol { get { return (PercentAlcohol / 100) * Volume; } }
+
+        public Beverage() {
+            Enabled = true;
+            Name = string.Empty;
+            Volume = 0;
+            PercentAlcohol = 0;
+        }
+
+        internal static Beverage FromReader(SQLiteDataReader reader)
+        {
+            Beverage b = new Beverage();
+            b.new_item = false;
+            b.id = reader.GetInt64(0);
+            b.Name = reader.GetString(1);
+            b.Volume = reader.GetInt64(2);
+            b.PercentAlcohol = reader.GetDouble(3);
+            b.Enabled = reader.GetBoolean(4);
+            return b;
+        }
 
     }
 
@@ -115,7 +156,7 @@ namespace Lloyd
                     else
                     {
                         throw new ArgumentException(
-                            "Specified file contains a database that is either not belonging to " +
+                            "Specified file contains a database that is either not belonging to " + 
                             "Lloyd, or is from a newer version. (expected meta.version == 1)"
                         );
                     }
@@ -141,53 +182,55 @@ namespace Lloyd
             lock (conn)
             {
                 Open();
-                (new SQLiteCommand(
-                    "CREATE TABLE meta (" +
-                        "version int " +
-                    ")", conn
+                (new SQLiteCommand(@"
+                    CREATE TABLE meta (
+                        version int
+                    )", conn
                 )).ExecuteNonQuery();
 
                 (new SQLiteCommand("INSERT INTO meta VALUES (1);", conn)).ExecuteNonQuery();
 
-                (new SQLiteCommand(
-                    "CREATE TABLE users (" +
-                        "id integer primary key autoincrement, " +
-                        "name varchar, " +
-                        "access_card varchar, " +
-                        "admin integer default 0, " +
-                        "enabled integer default 1, " +
-                        "last_access integer default 0" +
-                    ")", conn
+                (new SQLiteCommand(@"
+                    CREATE TABLE users (
+                        id integer primary key autoincrement, 
+                        name varchar, 
+                        access_card varchar, 
+                        admin integer default 0, 
+                        enabled integer default 1, 
+                        last_access integer default 0
+                    )", conn
                 )).ExecuteNonQuery();
 
-                (new SQLiteCommand(
-                    "CREATE TABLE beverage (" +
-                        "id integer primary key autoincrement, " +
-                        "name varchar, " +
-                        "volume integer, " +
-                        "percent_alcohol double, " +
-                    ")", conn
+                (new SQLiteCommand(@"
+                    CREATE TABLE beverage (
+                        id integer primary key autoincrement, 
+                        name varchar, 
+                        volume integer, 
+                        percent_alcohol double,
+						enabled integer default 1
+                    )", conn
                 )).ExecuteNonQuery();
 
-                (new SQLiteCommand(
-                    "CREATE TABLE sku (" +
-                        "id integer primary key autoincrement, " +
-                        "beverage_id integer, " +
-                        "barcode varchar, " +
-                        "quantity integer default 1 " +
-                    ")", conn
+                (new SQLiteCommand(@"
+                    CREATE TABLE sku (
+                        id integer primary key autoincrement, 
+                        beverage_id integer, 
+                        barcode varchar, 
+                        quantity integer default 1, 
+						enabled integer default 1
+                    )", conn
                 )).ExecuteNonQuery();
 
-                (new SQLiteCommand(
-                    "CREATE TABLE stock (" +
-                        "id integer primary key autoincrement, " +
-                        "beverage_id integer, " +
-                        "owner_id integer, " +
-                        "cost integer, " +
-                        "added integer default strftime('%s', 'now'), " +
-                        "consumer_id integer default 0, " +
-                        "consumed integer default 0 " +
-                    ")", conn
+                (new SQLiteCommand(@"
+                    CREATE TABLE stock (
+                        id integer primary key autoincrement, 
+                        beverage_id integer, 
+                        owner_id integer, 
+                        cost integer, 
+                        added integer default strftime('%s', 'now'), 
+                        consumer_id integer default 0, 
+                        consumed integer default 0 
+                    )", conn
                 )).ExecuteNonQuery();
 
                 Close();
@@ -419,7 +462,94 @@ namespace Lloyd
 
                 Close();
             }
-        
+        }
+
+        public Beverage GetBeverageById(long id)
+        {
+            Beverage b = null;
+            lock (conn)
+            {
+                Open();
+
+                SQLiteCommand cmd = new SQLiteCommand("SELECT id, name, volume, percent_alcohol, enabled FROM beverage WHERE id=:id LIMIT 1", conn);
+                cmd.Parameters.Add(new SQLiteParameter("id", id));
+
+
+                try
+                {
+                    SQLiteDataReader reader = cmd.ExecuteReader();
+                    if (!reader.Read())
+                    {
+                        b = null;
+                    }
+                    else
+                    {
+                        b = Beverage.FromReader(reader);
+                    }
+
+                    reader.Close();
+                }
+                catch (SQLiteException)
+                {
+                    // probably means that the table doesn't exist
+                    b = null;
+                }
+                finally
+                {
+                    Close();
+                }
+            }
+
+            return b;
+        }
+
+        public IList<Beverage> GetAllBeverages()
+        {
+            List<Beverage> lb = new List<Beverage>();
+            lock (conn)
+            {
+                Open();
+                SQLiteCommand cmd = new SQLiteCommand("SELECT id, name, volume, percent_alcohol, enabled FROM beverage", conn);
+                SQLiteDataReader reader = cmd.ExecuteReader();
+
+
+                while (reader.Read())
+                {
+                    lb.Add(Beverage.FromReader(reader));
+                }
+
+                Close();
+            }
+            return lb;
+        }
+
+        public void SaveBeverage(Beverage b)
+        {
+            lock (conn)
+            {
+                Open();
+
+                SQLiteCommand cmd;
+                if (b.NewItem)
+                {
+                    cmd = new SQLiteCommand("INSERT INTO beverage (name, volume, percent_alcohol, enabled) VALUES (:name, :volume, :percent_alcohol, :enabled)", conn);
+                }
+                else
+                {
+                    cmd = new SQLiteCommand("UPDATE beverage SET name=:name, volume=:volume, percent_alcohol=:percent_alcohol, enabled=:enabled WHERE id=:id", conn);
+                    cmd.Parameters.Add(new SQLiteParameter("id", b.ID));
+                }
+                
+                cmd.Parameters.Add(new SQLiteParameter("name", b.Name));
+                cmd.Parameters.Add(new SQLiteParameter("volume", b.Volume));
+                cmd.Parameters.Add(new SQLiteParameter("percent_alcohol", b.PercentAlcohol));
+                cmd.Parameters.Add(new SQLiteParameter("enabled", b.Enabled));
+                cmd.ExecuteNonQuery();
+
+                Close();
+
+            }
+
         }
     }
 }

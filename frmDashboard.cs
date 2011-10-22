@@ -39,6 +39,10 @@ namespace Lloyd
 
             btnUserManager.Enabled = admin;
             btnUserManager.Visible = admin;
+
+            btnEditor.Enabled = admin;
+            btnEditor.Visible = admin;
+
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -52,6 +56,14 @@ namespace Lloyd
             {
                 frmUserManager f = new frmUserManager();
                 f.ShowDialog(this);
+            }
+        }
+
+        private void btnEditor_Click(object sender, EventArgs e)
+        {
+            if (admin)
+            {
+
             }
         }
     }
