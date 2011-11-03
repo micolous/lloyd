@@ -19,7 +19,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -78,7 +77,7 @@ namespace Lloyd
             }
             catch (Exception)
             {
-                MessageBox.Show("Invalid input?  Couldn't add the user");
+                MessageBox.Show("That username or access key is in use by another user.  Please check that this is not a duplicate and try again.");
             }
         }
     }

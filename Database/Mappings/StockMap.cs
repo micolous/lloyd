@@ -22,16 +22,18 @@ using Lloyd.Database.Entities;
 
 namespace Lloyd.Database.Mappings
 {
-    public class UserMap : ClassMap<User>
+    public class StockMap : ClassMap<Stock>
     {
-        public UserMap()
+        public StockMap()
         {
             Id(x => x.Id);
-            Map(x => x.Name).Unique().Not.Nullable();
-            Map(x => x.AccessKey).Unique().Not.Nullable();
-            Map(x => x.IsAdmin);
-            Map(x => x.LastAccess);
-            Map(x => x.IsEnabled);
+            Map(x => x.Cost);
+            Map(x => x.AddedAt).Not.Nullable();
+            Map(x => x.ConsumedAt).Nullable();
+
+            References(x => x.Beverage).Not.Nullable();
+            References(x => x.Consumer).Nullable();
+            References(x => x.Owner).Not.Nullable();
         }
     }
 }

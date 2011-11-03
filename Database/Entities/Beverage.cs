@@ -18,34 +18,31 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using NHibernate;
+using System.Linq;
+using System.Text;
 
-namespace Lloyd
+namespace Lloyd.Database.Entities
 {
-    static class Program
+    public class Beverage
     {
-        internal static ISessionFactory factory;
+        public virtual int Id { get; private set; }
+        public virtual string Name { get; set; }
+        public virtual long Volume { get; set; }
+        public virtual double PercentAlcohol { get; set; }
+        public virtual bool IsEnabled { get; set; }
+        public virtual IList<Sku> Skus { get; set; }
+        public virtual IList<Stock> Stock { get; set; }
 
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        public virtual double StandardDrinks
         {
-
-            factory = Database.Factory.CreateSessionFactory("lloyd.db3");
-
-            if (!Database.Factory.HasUsers(factory))
+            get
             {
-                Database.Factory.PopulateInitialData(factory);
-                MessageBox.Show("Database created.  Login with access code: 0000");
+                StandardDrink sd = StandardDrink.GetForCurrentLocale();
+                return sd.StandardDrinksByPercent(PercentAlcohol, Volume);
             }
-
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmLogin());
         }
+
+        public virtual double VolumeAlcohol { get { return (PercentAlcohol / 100) * Volume; } }
+
     }
 }

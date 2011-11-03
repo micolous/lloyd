@@ -22,16 +22,17 @@ using Lloyd.Database.Entities;
 
 namespace Lloyd.Database.Mappings
 {
-    public class UserMap : ClassMap<User>
+    public class BeverageMap : ClassMap<Beverage>
     {
-        public UserMap()
-        {
+        public BeverageMap() {
             Id(x => x.Id);
-            Map(x => x.Name).Unique().Not.Nullable();
-            Map(x => x.AccessKey).Unique().Not.Nullable();
-            Map(x => x.IsAdmin);
-            Map(x => x.LastAccess);
+            Map(x => x.Name);
+            Map(x => x.Volume);
+            Map(x => x.PercentAlcohol);
             Map(x => x.IsEnabled);
+            HasMany(x => x.Skus)
+                .Inverse()
+                .Cascade.All();
         }
     }
 }

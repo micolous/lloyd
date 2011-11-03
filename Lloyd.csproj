@@ -64,16 +64,20 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data.SQLite">
-      <HintPath>.\System.Data.SQLite.DLL</HintPath>
+      <HintPath>Database\System.Data.SQLite.DLL</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Database.cs" />
+    <Compile Include="Database\Entities\Beverage.cs" />
+    <Compile Include="Database\Entities\Sku.cs" />
+    <Compile Include="Database\Entities\Stock.cs" />
     <Compile Include="Database\Entities\User.cs" />
     <Compile Include="Database\Factory.cs" />
+    <Compile Include="Database\Mappings\BeverageMap.cs" />
+    <Compile Include="Database\Mappings\StockMap.cs" />
     <Compile Include="Database\Mappings\UserMap.cs" />
     <Compile Include="frmAddUser.cs">
       <SubType>Form</SubType>
@@ -87,12 +91,12 @@
     <Compile Include="frmDashboard.Designer.cs">
       <DependentUpon>frmDashboard.cs</DependentUpon>
     </Compile>
-    <None Include="frmEditor.cs">
+    <Compile Include="frmEditor.cs">
       <SubType>Form</SubType>
-    </None>
-    <None Include="frmEditor.Designer.cs">
+    </Compile>
+    <Compile Include="frmEditor.Designer.cs">
       <DependentUpon>frmEditor.cs</DependentUpon>
-    </None>
+    </Compile>
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +138,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <Compile Include="Database\Mappings\SkuMap.cs" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

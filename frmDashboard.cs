@@ -19,7 +19,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -64,8 +63,8 @@ namespace Lloyd
         {
             if (admin)
             {
-                //frmEditor f = new frmEditor();
-                //f.ShowDialog(this);
+                frmEditor f = new frmEditor();
+                f.ShowDialog(this);
             }
         }
     }

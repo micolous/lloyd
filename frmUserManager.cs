@@ -19,7 +19,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -52,11 +51,11 @@ namespace Lloyd
                 foreach (User u in lu)
                 {
                     ListViewItem lvi = new ListViewItem(new string[] {
-                    u.Name,
-                    u.LastAccess.ToShortDateString() + " " + u.LastAccess.ToShortTimeString(),
-                    u.IsAdmin ? "yes" : "no",
-                    u.IsEnabled ? "yes" : "no"
-                });
+                        u.Name,
+                        u.LastAccess.ToShortDateString() + " " + u.LastAccess.ToShortTimeString(),
+                        u.IsAdmin ? "yes" : "no",
+                        u.IsEnabled ? "yes" : "no"
+                    });
 
                     lvi.Tag = u;
                     lvUserList.Items.Add(lvi);

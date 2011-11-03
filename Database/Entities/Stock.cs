@@ -17,21 +17,18 @@
  */
 
 using System;
-using FluentNHibernate.Mapping;
-using Lloyd.Database.Entities;
 
-namespace Lloyd.Database.Mappings
+namespace Lloyd.Database.Entities
 {
-    public class UserMap : ClassMap<User>
+    public class Stock
     {
-        public UserMap()
-        {
-            Id(x => x.Id);
-            Map(x => x.Name).Unique().Not.Nullable();
-            Map(x => x.AccessKey).Unique().Not.Nullable();
-            Map(x => x.IsAdmin);
-            Map(x => x.LastAccess);
-            Map(x => x.IsEnabled);
-        }
+        public virtual int Id { get; private set; }
+        public virtual Beverage Beverage { get; set; }
+        public virtual User Owner { get; set; }
+        public virtual uint Cost { get; set; }
+        public virtual DateTime AddedAt { get; set; }
+        public virtual User Consumer { get; set; }
+        public virtual DateTime ConsumedAt { get; set; }
+
     }
 }

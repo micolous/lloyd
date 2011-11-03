@@ -19,7 +19,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -48,13 +47,9 @@ namespace Lloyd
 
                 // attempt to handle the event.
                 User u = Database.Entities.User.GetUserByAccessKey(Program.factory, txtAccessCard.Text);
-
-                if (u == null)
-                {
-                    // invalid login.
-                    txtAccessCard.Text = "";
-                }
-                else
+                
+                txtAccessCard.Text = "";
+                if (u != null && u.IsEnabled)
                 {
                     // valid login.  launch interface.
                     txtAccessCard.Text = "";
@@ -63,10 +58,17 @@ namespace Lloyd
                     Hide();
                     f.ShowDialog(this);
                     Show();
-                    
+
+                }
+                else
+                {
+                    // TODO: implement some feedback mechanism for failed logins
+
                 }
             }
         }
+
+
 
     }
 }

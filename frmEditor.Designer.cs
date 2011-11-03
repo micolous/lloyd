@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lvBeverages = new System.Windows.Forms.ListView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.addDrinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editDrinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,26 +40,9 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvBeverages = new System.Windows.Forms.ListView();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lvBeverages
-            // 
-            this.lvBeverages.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7});
-            this.lvBeverages.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvBeverages.Location = new System.Drawing.Point(0, 24);
-            this.lvBeverages.Name = "lvBeverages";
-            this.lvBeverages.Size = new System.Drawing.Size(542, 293);
-            this.lvBeverages.TabIndex = 0;
-            this.lvBeverages.UseCompatibleStateImageBehavior = false;
-            this.lvBeverages.View = System.Windows.Forms.View.Details;
             // 
             // menuStrip1
             // 
@@ -137,6 +119,26 @@
             // 
             this.columnHeader7.Text = "Enabled";
             // 
+            // lvBeverages
+            // 
+            this.lvBeverages.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7});
+            this.lvBeverages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvBeverages.HideSelection = false;
+            this.lvBeverages.Location = new System.Drawing.Point(0, 24);
+            this.lvBeverages.MultiSelect = false;
+            this.lvBeverages.Name = "lvBeverages";
+            this.lvBeverages.Size = new System.Drawing.Size(542, 293);
+            this.lvBeverages.TabIndex = 0;
+            this.lvBeverages.UseCompatibleStateImageBehavior = false;
+            this.lvBeverages.View = System.Windows.Forms.View.Details;
+            // 
             // frmEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -157,7 +159,6 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView lvBeverages;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem addDrinkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editDrinkToolStripMenuItem;
@@ -170,6 +171,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ListView lvBeverages;
 
     }
 }
