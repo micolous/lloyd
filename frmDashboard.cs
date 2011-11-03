@@ -23,6 +23,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Lloyd.Database.Entities;
 
 namespace Lloyd
 {
@@ -33,9 +34,9 @@ namespace Lloyd
         {
             InitializeComponent();
 
-            lblWelcome.Text = string.Format(lblWelcome.Text, u.name);
+            lblWelcome.Text = string.Format(lblWelcome.Text, u.Name);
 
-            admin = u.admin;
+            admin = u.IsAdmin;
 
             btnUserManager.Enabled = admin;
             btnUserManager.Visible = admin;
@@ -63,8 +64,8 @@ namespace Lloyd
         {
             if (admin)
             {
-                frmEditor f = new frmEditor();
-                f.ShowDialog(this);
+                //frmEditor f = new frmEditor();
+                //f.ShowDialog(this);
             }
         }
     }

@@ -23,6 +23,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Lloyd.Database.Entities;
 
 namespace Lloyd
 {
@@ -44,22 +45,23 @@ namespace Lloyd
             lvUserList.BeginUpdate();
             lvUserList.Items.Clear();
             lvUserList.SelectedItems.Clear();
-            
-            IList<User> lu = Program.db.GetAllUsers();
-            foreach (User u in lu) {
-                DateTime lastAccessLocal = u.LastAccess.ToLocalTime();
 
-                ListViewItem lvi = new ListViewItem(new string[] {
-                    u.name,
-                    lastAccessLocal.ToShortDateString() + " " + lastAccessLocal.ToShortTimeString(),
-                    u.admin ? "yes" : "no",
-                    u.enabled ? "yes" : "no"
+            using (var session = Program.factory.OpenSession())
+            {
+                var lu = session.CreateCriteria(typeof(User)).List<User>();
+                foreach (User u in lu)
+                {
+                    ListViewItem lvi = new ListViewItem(new string[] {
+                    u.Name,
+                    u.LastAccess.ToShortDateString() + " " + u.LastAccess.ToShortTimeString(),
+                    u.IsAdmin ? "yes" : "no",
+                    u.IsEnabled ? "yes" : "no"
                 });
 
-                lvi.Tag = u;
-                lvUserList.Items.Add(lvi);
+                    lvi.Tag = u;
+                    lvUserList.Items.Add(lvi);
+                }
             }
-
 
 
             lvUserList.EndUpdate();
@@ -80,7 +82,17 @@ namespace Lloyd
                 e.Handled = true;
 
                 // rename the user
-                Program.db.RenameUser(GetSelectedUser().id, txtRenameUser.Text);
+                var u = GetSelectedUser();
+                using (var session = Program.factory.OpenSession())
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        u.Name = txtRenameUser.Text;
+                        session.SaveOrUpdate(u);
+                        transaction.Commit();
+                    }
+                }
+
                 RedrawUserList();
                 
             }
@@ -109,14 +121,32 @@ namespace Lloyd
         private void administratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             User u = GetSelectedUser();
-            Program.db.SetUserAdministrator(u.id, !u.admin);
+            
+            using (var session = Program.factory.OpenSession())
+            {
+                using (var transaction = session.BeginTransaction())
+                {
+                    u.IsAdmin = !u.IsAdmin;
+                    session.SaveOrUpdate(u);
+                    transaction.Commit();
+                }
+            }
+
             RedrawUserList();
         }
 
         private void disableAccountToolStripMenuItem_Click(object sender, EventArgs e)
         {
             User u = GetSelectedUser();
-            Program.db.SetUserEnabled(u.id, !u.enabled);
+            using (var session = Program.factory.OpenSession())
+            {
+                using (var transaction = session.BeginTransaction())
+                {
+                    u.IsEnabled = !u.IsEnabled;
+                    session.SaveOrUpdate(u);
+                    transaction.Commit();
+                }
+            }
             RedrawUserList();
         }
 
@@ -129,7 +159,16 @@ namespace Lloyd
                 // rename the user
                 try
                 {
-                    Program.db.ChangeAccessKey(GetSelectedUser().id, txtChangeAccessCard.Text);
+                    User u = GetSelectedUser();
+                    using (var session = Program.factory.OpenSession())
+                    {
+                        using (var transaction = session.BeginTransaction())
+                        {
+                            u.EncodeAccessKey(txtChangeAccessCard.Text);
+                            session.SaveOrUpdate(u);
+                            transaction.Commit();
+                        }
+                    }
                 }
                 catch (ArgumentException)
                 {

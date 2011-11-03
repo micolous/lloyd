@@ -19,13 +19,13 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using NHibernate;
 
 namespace Lloyd
 {
     static class Program
     {
-
-        public static Database db;
+        internal static ISessionFactory factory;
 
         /// <summary>
         /// The main entry point for the application.
@@ -33,28 +33,14 @@ namespace Lloyd
         [STAThread]
         static void Main()
         {
-            // create a database connection
-            try
+
+            factory = Database.Factory.CreateSessionFactory("lloyd.db3");
+
+            if (!Database.Factory.HasUsers(factory))
             {
-                db = new Database("lloyd.db3");
-            }
-            catch (ArgumentException)
-            {
-                MessageBox.Show(
-                    "The database file probably contains data from a newer version of " +
-                    "Lloyd, and is not schema-compatible.  Please upgrade Lloyd, or " +
-                    "delete the existing database file.",
-                    "Lloyd", MessageBoxButtons.OK, MessageBoxIcon.Error
-                );
-                return;
+                Database.Factory.PopulateInitialData(factory);
             }
 
-            if (db.FirstRun)
-            {
-                // first run detected.
-                MessageBox.Show("New database file created.  The initial account's access code is 0000.");
-
-            }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

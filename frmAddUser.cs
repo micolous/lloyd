@@ -23,6 +23,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Lloyd.Database.Entities;
 
 namespace Lloyd
 {
@@ -60,7 +61,17 @@ namespace Lloyd
             // add the user to the system.
             try
             {
-                Program.db.CreateUser(txtName.Text, txtAccessKey.Text, chkAdmin.Checked);
+                using (var session = Program.factory.OpenSession())
+                {
+                    using (var transaction = session.BeginTransaction())
+                    {
+                        var adminUser = new User { Name = txtName.Text, IsEnabled = true, IsAdmin = chkAdmin.Checked, LastAccess = DateTime.MinValue };
+                        adminUser.EncodeAccessKey(txtAccessKey.Text);
+                        session.SaveOrUpdate(adminUser);
+
+                        transaction.Commit();
+                    }
+                }
 
                 MessageBox.Show("Created user!");
                 Close();

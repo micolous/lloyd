@@ -23,6 +23,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Lloyd.Database.Entities;
 
 namespace Lloyd
 {
@@ -46,7 +47,7 @@ namespace Lloyd
                 e.Handled = true;
 
                 // attempt to handle the event.
-                User u = Program.db.LoginUser(txtAccessCard.Text);
+                User u = Database.Entities.User.GetUserByAccessKey(Program.factory, txtAccessCard.Text);
 
                 if (u == null)
                 {
