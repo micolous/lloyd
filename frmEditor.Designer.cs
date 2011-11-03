@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lvBeverages = new System.Windows.Forms.ListView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.addDrinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editDrinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,9 +44,9 @@
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // listView1
+            // lvBeverages
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvBeverages.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
@@ -54,13 +54,13 @@
             this.columnHeader5,
             this.columnHeader6,
             this.columnHeader7});
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.Location = new System.Drawing.Point(0, 24);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(542, 293);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.lvBeverages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvBeverages.Location = new System.Drawing.Point(0, 24);
+            this.lvBeverages.Name = "lvBeverages";
+            this.lvBeverages.Size = new System.Drawing.Size(542, 293);
+            this.lvBeverages.TabIndex = 0;
+            this.lvBeverages.UseCompatibleStateImageBehavior = false;
+            this.lvBeverages.View = System.Windows.Forms.View.Details;
             // 
             // menuStrip1
             // 
@@ -102,7 +102,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Name";
-            this.columnHeader1.Width = 188;
+            this.columnHeader1.Width = 195;
             // 
             // columnHeader2
             // 
@@ -142,7 +142,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(542, 317);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.lvBeverages);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmEditor";
@@ -157,7 +157,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lvBeverages;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem addDrinkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editDrinkToolStripMenuItem;

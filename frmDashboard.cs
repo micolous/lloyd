@@ -63,7 +63,8 @@ namespace Lloyd
         {
             if (admin)
             {
-
+                frmEditor f = new frmEditor();
+                f.ShowDialog(this);
             }
         }
     }

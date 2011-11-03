@@ -22,7 +22,30 @@ namespace Lloyd
 
         void RedrawDrinksList()
         {
+            lvBeverages.BeginUpdate();
+            lvBeverages.Items.Clear();
+            lvBeverages.SelectedItems.Clear();
+            
 
+            IList<Beverage> lb = Program.db.GetAllBeverages();
+
+            foreach (Beverage b in lb)
+            {
+                ListViewItem lvi = new ListViewItem(new string[] {
+                    b.Name,
+                    b.Volume + " mL",
+                    b.PercentAlcohol + " %",
+                    string.Format("{0,D.1}", b.StandardDrinks),
+                    "???",
+                    "???",
+                    b.Enabled ? "yes" : "no"
+                });
+
+                lvi.Tag = b;
+                lvBeverages.Items.Add(lvi);
+
+            }
+            lvBeverages.EndUpdate();
         }
 
     }

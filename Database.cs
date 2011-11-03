@@ -45,14 +45,12 @@ namespace Lloyd
 
     public class Beverage
     {
-        long id;
-        bool new_item = true;
-        public long ID { get { return id;  } }
+        public long ID { get; internal set; }
         public string Name { get; set; }
         public long Volume { get; set; }
         public double PercentAlcohol { get; set; }
         public bool Enabled { get; set; }
-        public bool NewItem { get { return new_item; } }
+        public bool NewItem { get; internal set; }
         public double StandardDrinks
         {
             get
@@ -69,13 +67,14 @@ namespace Lloyd
             Name = string.Empty;
             Volume = 0;
             PercentAlcohol = 0;
+            NewItem = true;
         }
 
         internal static Beverage FromReader(SQLiteDataReader reader)
         {
             Beverage b = new Beverage();
-            b.new_item = false;
-            b.id = reader.GetInt64(0);
+            b.NewItem = false;
+            b.ID = reader.GetInt64(0);
             b.Name = reader.GetString(1);
             b.Volume = reader.GetInt64(2);
             b.PercentAlcohol = reader.GetDouble(3);
@@ -227,7 +226,7 @@ namespace Lloyd
                         beverage_id integer, 
                         owner_id integer, 
                         cost integer, 
-                        added integer default strftime('%s', 'now'), 
+                        added integer, 
                         consumer_id integer default 0, 
                         consumed integer default 0 
                     )", conn
@@ -240,6 +239,14 @@ namespace Lloyd
             // admin : 0000
             CreateUser("admin", "0000", true);
 
+            // example beer
+            SaveBeverage(new Beverage()
+            {
+                Name = "Example Beverage",
+                PercentAlcohol = 4.5,
+                Volume = 375,
+                Enabled = true,
+            });
         }
 
         /// <summary>
@@ -532,19 +539,32 @@ namespace Lloyd
                 SQLiteCommand cmd;
                 if (b.NewItem)
                 {
-                    cmd = new SQLiteCommand("INSERT INTO beverage (name, volume, percent_alcohol, enabled) VALUES (:name, :volume, :percent_alcohol, :enabled)", conn);
+                    cmd = new SQLiteCommand(@"
+                        INSERT INTO beverage (name, volume, percent_alcohol, enabled) VALUES (:name, :volume, :percent_alcohol, :enabled);
+                        SELECT last_insert_rowid() AS id;
+                    ", conn);
                 }
                 else
                 {
                     cmd = new SQLiteCommand("UPDATE beverage SET name=:name, volume=:volume, percent_alcohol=:percent_alcohol, enabled=:enabled WHERE id=:id", conn);
                     cmd.Parameters.Add(new SQLiteParameter("id", b.ID));
                 }
-                
+
                 cmd.Parameters.Add(new SQLiteParameter("name", b.Name));
                 cmd.Parameters.Add(new SQLiteParameter("volume", b.Volume));
                 cmd.Parameters.Add(new SQLiteParameter("percent_alcohol", b.PercentAlcohol));
                 cmd.Parameters.Add(new SQLiteParameter("enabled", b.Enabled));
-                cmd.ExecuteNonQuery();
+
+
+                if (b.NewItem)
+                {
+                    // alter it to an existing object state
+                    long id = (long)cmd.ExecuteScalar();
+                    b.ID = id;
+                    b.NewItem = false;
+                }
+                else
+                    cmd.ExecuteNonQuery();
 
                 Close();
 
