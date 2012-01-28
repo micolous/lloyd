@@ -28,10 +28,31 @@ namespace Lloyd.Database.Entities
     public class User
     {
         public virtual int Id { get; private set; }
+
+        /// <summary>
+        /// The user's name.
+        /// </summary>
         public virtual string Name { get; set; }
+
+        /// <summary>
+        /// The user's access key, in a hashed (SHA1) form.  Use EncodeAccessKey() in order to
+        /// set this to a new value.
+        /// </summary>
         public virtual string AccessKey { get; set; }
+
+        /// <summary>
+        /// Is the user an administrator of the system?
+        /// </summary>
         public virtual bool IsAdmin { get; set; }
+
+        /// <summary>
+        /// When did the user last log in to the system?
+        /// </summary>
         public virtual DateTime LastAccess { get; set; }
+
+        /// <summary>
+        /// Is the user's account active?
+        /// </summary>
         public virtual bool IsEnabled { get; set; }
 
         /// <summary>
@@ -47,11 +68,21 @@ namespace Lloyd.Database.Entities
             return BitConverter.ToString(b).Replace("-", string.Empty);
         }
 
+        /// <summary>
+        /// Sets a new access key for the user.  This performs an SHA1 hash of the inputted code.
+        /// </summary>
+        /// <param name="input"></param>
         public virtual void EncodeAccessKey(string input)
         {
             AccessKey = SHA1Sum(input);
         }
 
+        /// <summary>
+        /// Looks up a user by their access key.
+        /// </summary>
+        /// <param name="factory"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static User GetUserByAccessKey(ISessionFactory factory, string key)
         {
             key = SHA1Sum(key);
