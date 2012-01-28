@@ -27,15 +27,31 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using Lloyd.Database.Entities;
+using System.IO;
 
 
 namespace Lloyd.Database
 {
     public class Factory
     {
-        public static ISessionFactory CreateSessionFactory(string filename)
+        /// <summary>
+        /// An ISessionFactory for interacting with NHiberate with.
+        /// </summary>
+        public ISessionFactory SessionFactory { get; private set; }
+
+        /// <summary>
+        /// Was the database created by this factory, or did it already exist?
+        /// </summary>
+        public bool DatabaseCreated { get; private set; }
+        private string databaseFilename = string.Empty;
+
+        public Factory(string filename)
         {
-            return Fluently.Configure()
+            databaseFilename = filename;
+            DatabaseCreated = false;
+
+            SessionFactory =
+             Fluently.Configure()
                 .Database(
                   SQLiteConfiguration.Standard
                     .UsingFile(filename)
@@ -44,34 +60,25 @@ namespace Lloyd.Database
                 .ExposeConfiguration(BuildSchema)
                 .BuildSessionFactory();
 
+            if (DatabaseCreated)
+                PopulateInitialData();
         }
 
-        private static void BuildSchema(Configuration config)
+        private void BuildSchema(Configuration config)
         {
-
-            // this NHibernate tool takes a configuration (with mapping info in)
-            // and exports a database schema from it
-            new SchemaExport(config)
-              .Create(false, true);
-        }
-
-        public static bool HasUsers(ISessionFactory factory)
-        {
-            using (var session = factory.OpenSession())
+            if (!File.Exists(databaseFilename))
             {
-                using (var transaction = session.BeginTransaction())
-                {
-
-                    var users = session.CreateCriteria(typeof(User)).List<User>();
-
-                    return users.Count > 0;
-                }
+                DatabaseCreated = true;
+                // The database file doesn't already exist, so we have to create the
+                // schema for it.
+                new SchemaExport(config).Create(false, true);
             }
         }
 
-        public static void PopulateInitialData(ISessionFactory factory)
+
+        private void PopulateInitialData()
         {
-            using (var session = factory.OpenSession())
+            using (var session = SessionFactory.OpenSession())
             {
                 using (var transaction = session.BeginTransaction())
                 {
@@ -85,6 +92,11 @@ namespace Lloyd.Database
                     transaction.Commit();
                 }
             }
+        }
+
+        public ISession OpenSession()
+        {
+            return SessionFactory.OpenSession();
         }
     }
 }

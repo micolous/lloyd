@@ -19,13 +19,13 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using NHibernate;
+using Lloyd.Database;
 
 namespace Lloyd
 {
     static class Program
     {
-        internal static ISessionFactory factory;
+        internal static Factory factory;
 
         /// <summary>
         /// The main entry point for the application.
@@ -34,11 +34,11 @@ namespace Lloyd
         static void Main()
         {
 
-            factory = Database.Factory.CreateSessionFactory("lloyd.db3");
+            factory = new Factory("lloyd.db3");
 
-            if (!Database.Factory.HasUsers(factory))
+
+            if (factory.DatabaseCreated)
             {
-                Database.Factory.PopulateInitialData(factory);
                 MessageBox.Show("Database created.  Login with access code: 0000");
             }
 

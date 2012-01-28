@@ -46,7 +46,7 @@ namespace Lloyd
                 e.Handled = true;
 
                 // attempt to handle the event.
-                User u = Database.Entities.User.GetUserByAccessKey(Program.factory, txtAccessCard.Text);
+                User u = Database.Entities.User.GetUserByAccessKey(Program.factory.SessionFactory, txtAccessCard.Text);
                 
                 txtAccessCard.Text = "";
                 if (u != null && u.IsEnabled)
