@@ -41,12 +41,18 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lvBeverages = new System.Windows.Forms.ListView();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importDrinksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportDrinksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
             this.addDrinkToolStripMenuItem,
             this.editDrinkToolStripMenuItem,
             this.enableDisableDrinkToolStripMenuItem,
@@ -61,25 +67,25 @@
             // 
             this.addDrinkToolStripMenuItem.Name = "addDrinkToolStripMenuItem";
             this.addDrinkToolStripMenuItem.Size = new System.Drawing.Size(79, 21);
-            this.addDrinkToolStripMenuItem.Text = "Add Drink";
+            this.addDrinkToolStripMenuItem.Text = "&Add Drink";
             // 
             // editDrinkToolStripMenuItem
             // 
             this.editDrinkToolStripMenuItem.Name = "editDrinkToolStripMenuItem";
             this.editDrinkToolStripMenuItem.Size = new System.Drawing.Size(78, 21);
-            this.editDrinkToolStripMenuItem.Text = "Edit Drink";
+            this.editDrinkToolStripMenuItem.Text = "&Edit Drink";
             // 
             // enableDisableDrinkToolStripMenuItem
             // 
             this.enableDisableDrinkToolStripMenuItem.Name = "enableDisableDrinkToolStripMenuItem";
             this.enableDisableDrinkToolStripMenuItem.Size = new System.Drawing.Size(145, 21);
-            this.enableDisableDrinkToolStripMenuItem.Text = "Enable/Disable Drink";
+            this.enableDisableDrinkToolStripMenuItem.Text = "En&able/Disable Drink";
             // 
             // deleteDrinkToolStripMenuItem
             // 
             this.deleteDrinkToolStripMenuItem.Name = "deleteDrinkToolStripMenuItem";
             this.deleteDrinkToolStripMenuItem.Size = new System.Drawing.Size(97, 21);
-            this.deleteDrinkToolStripMenuItem.Text = "Delete Drink";
+            this.deleteDrinkToolStripMenuItem.Text = "&Delete Drink";
             // 
             // columnHeader1
             // 
@@ -139,6 +145,43 @@
             this.lvBeverages.UseCompatibleStateImageBehavior = false;
             this.lvBeverages.View = System.Windows.Forms.View.Details;
             // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importDrinksToolStripMenuItem,
+            this.exportDrinksToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.closeToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(42, 21);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // importDrinksToolStripMenuItem
+            // 
+            this.importDrinksToolStripMenuItem.Name = "importDrinksToolStripMenuItem";
+            this.importDrinksToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.importDrinksToolStripMenuItem.Text = "&Import Drinks...";
+            this.importDrinksToolStripMenuItem.Click += new System.EventHandler(this.importDrinksToolStripMenuItem_Click);
+            // 
+            // exportDrinksToolStripMenuItem
+            // 
+            this.exportDrinksToolStripMenuItem.Name = "exportDrinksToolStripMenuItem";
+            this.exportDrinksToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.exportDrinksToolStripMenuItem.Text = "&Export Drinks...";
+            this.exportDrinksToolStripMenuItem.Click += new System.EventHandler(this.exportDrinksToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(166, 6);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.closeToolStripMenuItem.Text = "&Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
             // frmEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -172,6 +215,11 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ListView lvBeverages;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importDrinksToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportDrinksToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
 
     }
 }

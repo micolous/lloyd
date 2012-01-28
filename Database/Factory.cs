@@ -85,7 +85,7 @@ namespace Lloyd.Database
                     var adminUser = new User { Name = "admin", IsEnabled = true, IsAdmin = true, LastAccess = DateTime.Now };
                     adminUser.EncodeAccessKey("0000");
                     session.SaveOrUpdate(adminUser);
-
+                
                     var testBeverage = new Beverage { Name = "Example Beer", IsEnabled = true, PercentAlcohol = 4.5, Volume = 375 };
                     session.SaveOrUpdate(testBeverage);
 

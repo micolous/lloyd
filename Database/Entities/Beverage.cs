@@ -19,20 +19,36 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Xml.Serialization;
+
 
 namespace Lloyd.Database.Entities
 {
+    [XmlType]
     public class Beverage
     {
+        [XmlIgnore]
         public virtual int Id { get; private set; }
+
+        [XmlAttribute]
         public virtual string Name { get; set; }
+
+        [XmlAttribute]
         public virtual long Volume { get; set; }
+
+        [XmlAttribute]
         public virtual double PercentAlcohol { get; set; }
+
+        [XmlIgnore]
         public virtual bool IsEnabled { get; set; }
+
+        [XmlIgnore]
         public virtual IList<Sku> Skus { get; set; }
+
+        [XmlIgnore]
         public virtual IList<Stock> Stock { get; set; }
 
+        [XmlIgnore]
         public virtual double StandardDrinks
         {
             get
@@ -42,7 +58,19 @@ namespace Lloyd.Database.Entities
             }
         }
 
+        [XmlIgnore]
         public virtual double VolumeAlcohol { get { return (PercentAlcohol / 100) * Volume; } }
 
+        [XmlIgnore]
+        public virtual double MassAlcohol { get { return VolumeAlcohol * StandardDrink.alcohol_density_g_ml; } }
+
+        [XmlArray(ElementName="Skus")]
+        public virtual Sku[] SkuArray
+        {
+            get
+            {
+                return Skus.ToArray<Sku>();
+            }
+        }
     }
 }

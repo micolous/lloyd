@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\BeverageDocument.cs" />
     <Compile Include="Database\Entities\Beverage.cs" />
     <Compile Include="Database\Entities\Sku.cs" />
     <Compile Include="Database\Entities\Stock.cs" />

@@ -17,15 +17,22 @@
  */
 
 using System;
+using System.Xml.Serialization;
 
 namespace Lloyd.Database.Entities
 {
+    [XmlType]
     public class Sku
     {
+        [XmlIgnore]
         public virtual int Id { get; private set; }
+        [XmlIgnore]
         public virtual Beverage Beverage { get; set; }
+        [XmlAttribute]
         public virtual string Barcode { get; set; }
+        [XmlIgnore]
         public virtual uint Quantity { get; set; }
+        [XmlAttribute]
         public virtual bool IsEnabled { get; set; }
 
     }

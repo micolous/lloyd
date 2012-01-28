@@ -81,7 +81,8 @@ namespace Lloyd
             new StandardDrink(10.0, new CultureInfo("is"));
 
             // Ireland
-            new StandardDrink(12.7, new CultureInfo("ga"));
+            // Despite this being in the list of supported cultures, "ga" is not...
+            //new StandardDrink(12.7, new CultureInfo("ga"));
             new StandardDrink(12.7, new CultureInfo("ga-IE"));
             new StandardDrink(12.7, new CultureInfo("en-IE"));
 
@@ -117,7 +118,7 @@ namespace Lloyd
         /// <summary>
         /// Alcohol has a density of 0.789 grams per mL (g/cm³).
         /// </summary>
-        const double alcohol_density_g_ml = 0.789;
+        public const double alcohol_density_g_ml = 0.789;
 
         double alcohol_ml;
         CultureInfo culture;
