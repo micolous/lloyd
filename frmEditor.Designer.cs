@@ -53,32 +53,32 @@
             this.deleteDrinkToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(542, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(542, 25);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // addDrinkToolStripMenuItem
             // 
             this.addDrinkToolStripMenuItem.Name = "addDrinkToolStripMenuItem";
-            this.addDrinkToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.addDrinkToolStripMenuItem.Size = new System.Drawing.Size(79, 21);
             this.addDrinkToolStripMenuItem.Text = "Add Drink";
             // 
             // editDrinkToolStripMenuItem
             // 
             this.editDrinkToolStripMenuItem.Name = "editDrinkToolStripMenuItem";
-            this.editDrinkToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.editDrinkToolStripMenuItem.Size = new System.Drawing.Size(78, 21);
             this.editDrinkToolStripMenuItem.Text = "Edit Drink";
             // 
             // enableDisableDrinkToolStripMenuItem
             // 
             this.enableDisableDrinkToolStripMenuItem.Name = "enableDisableDrinkToolStripMenuItem";
-            this.enableDisableDrinkToolStripMenuItem.Size = new System.Drawing.Size(128, 20);
+            this.enableDisableDrinkToolStripMenuItem.Size = new System.Drawing.Size(145, 21);
             this.enableDisableDrinkToolStripMenuItem.Text = "Enable/Disable Drink";
             // 
             // deleteDrinkToolStripMenuItem
             // 
             this.deleteDrinkToolStripMenuItem.Name = "deleteDrinkToolStripMenuItem";
-            this.deleteDrinkToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.deleteDrinkToolStripMenuItem.Size = new System.Drawing.Size(97, 21);
             this.deleteDrinkToolStripMenuItem.Text = "Delete Drink";
             // 
             // columnHeader1
@@ -131,10 +131,10 @@
             this.columnHeader7});
             this.lvBeverages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvBeverages.HideSelection = false;
-            this.lvBeverages.Location = new System.Drawing.Point(0, 24);
+            this.lvBeverages.Location = new System.Drawing.Point(0, 25);
             this.lvBeverages.MultiSelect = false;
             this.lvBeverages.Name = "lvBeverages";
-            this.lvBeverages.Size = new System.Drawing.Size(542, 293);
+            this.lvBeverages.Size = new System.Drawing.Size(542, 292);
             this.lvBeverages.TabIndex = 0;
             this.lvBeverages.UseCompatibleStateImageBehavior = false;
             this.lvBeverages.View = System.Windows.Forms.View.Details;
