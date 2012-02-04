@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importDrinksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportDrinksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addDrinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editDrinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableDisableDrinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,11 +46,6 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lvBeverages = new System.Windows.Forms.ListView();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importDrinksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportDrinksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,11 +63,49 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importDrinksToolStripMenuItem,
+            this.exportDrinksToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.closeToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(42, 21);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // importDrinksToolStripMenuItem
+            // 
+            this.importDrinksToolStripMenuItem.Name = "importDrinksToolStripMenuItem";
+            this.importDrinksToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.importDrinksToolStripMenuItem.Text = "&Import Drinks...";
+            this.importDrinksToolStripMenuItem.Click += new System.EventHandler(this.importDrinksToolStripMenuItem_Click);
+            // 
+            // exportDrinksToolStripMenuItem
+            // 
+            this.exportDrinksToolStripMenuItem.Name = "exportDrinksToolStripMenuItem";
+            this.exportDrinksToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.exportDrinksToolStripMenuItem.Text = "&Export Drinks...";
+            this.exportDrinksToolStripMenuItem.Click += new System.EventHandler(this.exportDrinksToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(166, 6);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.closeToolStripMenuItem.Text = "&Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
             // addDrinkToolStripMenuItem
             // 
             this.addDrinkToolStripMenuItem.Name = "addDrinkToolStripMenuItem";
             this.addDrinkToolStripMenuItem.Size = new System.Drawing.Size(79, 21);
             this.addDrinkToolStripMenuItem.Text = "&Add Drink";
+            this.addDrinkToolStripMenuItem.Click += new System.EventHandler(this.addDrinkToolStripMenuItem_Click);
             // 
             // editDrinkToolStripMenuItem
             // 
@@ -144,43 +182,6 @@
             this.lvBeverages.TabIndex = 0;
             this.lvBeverages.UseCompatibleStateImageBehavior = false;
             this.lvBeverages.View = System.Windows.Forms.View.Details;
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importDrinksToolStripMenuItem,
-            this.exportDrinksToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.closeToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(42, 21);
-            this.fileToolStripMenuItem.Text = "&File";
-            // 
-            // importDrinksToolStripMenuItem
-            // 
-            this.importDrinksToolStripMenuItem.Name = "importDrinksToolStripMenuItem";
-            this.importDrinksToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.importDrinksToolStripMenuItem.Text = "&Import Drinks...";
-            this.importDrinksToolStripMenuItem.Click += new System.EventHandler(this.importDrinksToolStripMenuItem_Click);
-            // 
-            // exportDrinksToolStripMenuItem
-            // 
-            this.exportDrinksToolStripMenuItem.Name = "exportDrinksToolStripMenuItem";
-            this.exportDrinksToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.exportDrinksToolStripMenuItem.Text = "&Export Drinks...";
-            this.exportDrinksToolStripMenuItem.Click += new System.EventHandler(this.exportDrinksToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(166, 6);
-            // 
-            // closeToolStripMenuItem
-            // 
-            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.closeToolStripMenuItem.Text = "&Close";
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // frmEditor
             // 

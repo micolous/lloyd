@@ -146,5 +146,12 @@ namespace Lloyd
             }
         }
 
+        private void addDrinkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // TODO: implement this properly.
+            frmDrinkEditor f = new frmDrinkEditor();
+            f.ShowDialog(this);
+        }
+
     }
 }

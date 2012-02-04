@@ -63,6 +63,7 @@
       <HintPath>Database\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite">
       <HintPath>Database\System.Data.SQLite.DLL</HintPath>
     </Reference>
@@ -92,6 +93,12 @@
     <Compile Include="frmDashboard.Designer.cs">
       <DependentUpon>frmDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDrinkEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDrinkEditor.Designer.cs">
+      <DependentUpon>frmDrinkEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDashboard.resx">
       <DependentUpon>frmDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDrinkEditor.resx">
+      <DependentUpon>frmDrinkEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEditor.resx">
       <DependentUpon>frmEditor.cs</DependentUpon>

@@ -54,11 +54,11 @@
             this.columnHeader4});
             this.lvUserList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvUserList.HideSelection = false;
-            this.lvUserList.Location = new System.Drawing.Point(0, 24);
+            this.lvUserList.Location = new System.Drawing.Point(0, 25);
             this.lvUserList.MultiSelect = false;
             this.lvUserList.Name = "lvUserList";
             this.lvUserList.ShowGroups = false;
-            this.lvUserList.Size = new System.Drawing.Size(484, 328);
+            this.lvUserList.Size = new System.Drawing.Size(484, 327);
             this.lvUserList.TabIndex = 0;
             this.lvUserList.UseCompatibleStateImageBehavior = false;
             this.lvUserList.View = System.Windows.Forms.View.Details;
@@ -89,14 +89,14 @@
             this.changeUserToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(484, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(484, 25);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // addUserToolStripMenuItem
             // 
             this.addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
-            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(76, 21);
             this.addUserToolStripMenuItem.Text = "Add User";
             this.addUserToolStripMenuItem.Click += new System.EventHandler(this.addUserToolStripMenuItem_Click);
             // 
@@ -109,7 +109,7 @@
             this.disableAccountToolStripMenuItem});
             this.changeUserToolStripMenuItem.Enabled = false;
             this.changeUserToolStripMenuItem.Name = "changeUserToolStripMenuItem";
-            this.changeUserToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.changeUserToolStripMenuItem.Size = new System.Drawing.Size(98, 21);
             this.changeUserToolStripMenuItem.Text = "Change User";
             // 
             // renameToolStripMenuItem
@@ -117,13 +117,13 @@
             this.renameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.txtRenameUser});
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.renameToolStripMenuItem.Text = "Rename";
             // 
             // txtRenameUser
             // 
             this.txtRenameUser.Name = "txtRenameUser";
-            this.txtRenameUser.Size = new System.Drawing.Size(100, 23);
+            this.txtRenameUser.Size = new System.Drawing.Size(100, 22);
             this.txtRenameUser.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRenameUser_KeyPress);
             // 
             // changeAccessCardToolStripMenuItem
@@ -131,26 +131,26 @@
             this.changeAccessCardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.txtChangeAccessCard});
             this.changeAccessCardToolStripMenuItem.Name = "changeAccessCardToolStripMenuItem";
-            this.changeAccessCardToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.changeAccessCardToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.changeAccessCardToolStripMenuItem.Text = "Change Access Card";
             // 
             // txtChangeAccessCard
             // 
             this.txtChangeAccessCard.Name = "txtChangeAccessCard";
-            this.txtChangeAccessCard.Size = new System.Drawing.Size(100, 23);
+            this.txtChangeAccessCard.Size = new System.Drawing.Size(100, 22);
             this.txtChangeAccessCard.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtChangeAccessCard_KeyPress);
             // 
             // administratorToolStripMenuItem
             // 
             this.administratorToolStripMenuItem.Name = "administratorToolStripMenuItem";
-            this.administratorToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.administratorToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.administratorToolStripMenuItem.Text = "Administrator";
             this.administratorToolStripMenuItem.Click += new System.EventHandler(this.administratorToolStripMenuItem_Click);
             // 
             // disableAccountToolStripMenuItem
             // 
             this.disableAccountToolStripMenuItem.Name = "disableAccountToolStripMenuItem";
-            this.disableAccountToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.disableAccountToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.disableAccountToolStripMenuItem.Text = "Enable/Disable Account";
             this.disableAccountToolStripMenuItem.Click += new System.EventHandler(this.disableAccountToolStripMenuItem_Click);
             // 
