@@ -109,9 +109,11 @@
             // 
             // editDrinkToolStripMenuItem
             // 
+            this.editDrinkToolStripMenuItem.Enabled = false;
             this.editDrinkToolStripMenuItem.Name = "editDrinkToolStripMenuItem";
             this.editDrinkToolStripMenuItem.Size = new System.Drawing.Size(78, 21);
             this.editDrinkToolStripMenuItem.Text = "&Edit Drink";
+            this.editDrinkToolStripMenuItem.Click += new System.EventHandler(this.editDrinkToolStripMenuItem_Click);
             // 
             // enableDisableDrinkToolStripMenuItem
             // 
@@ -182,6 +184,7 @@
             this.lvBeverages.TabIndex = 0;
             this.lvBeverages.UseCompatibleStateImageBehavior = false;
             this.lvBeverages.View = System.Windows.Forms.View.Details;
+            this.lvBeverages.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lvBeverages_ItemSelectionChanged);
             // 
             // frmEditor
             // 
@@ -208,6 +211,11 @@
         private System.Windows.Forms.ToolStripMenuItem editDrinkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enableDisableDrinkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteDrinkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importDrinksToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportDrinksToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
@@ -216,11 +224,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ListView lvBeverages;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importDrinksToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportDrinksToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
 
     }
 }

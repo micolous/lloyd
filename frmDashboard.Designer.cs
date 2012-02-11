@@ -38,19 +38,20 @@
             // 
             this.lblWelcome.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblWelcome.Font = new System.Drawing.Font("Special Elite", 20.25F, System.Drawing.FontStyle.Bold);
-            this.lblWelcome.Location = new System.Drawing.Point(12, 16);
+            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWelcome.Location = new System.Drawing.Point(12, 21);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(548, 36);
+            this.lblWelcome.Size = new System.Drawing.Size(548, 47);
             this.lblWelcome.TabIndex = 0;
             this.lblWelcome.Text = "Hello, {0}.";
             // 
             // btnUserManager
             // 
             this.btnUserManager.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUserManager.Location = new System.Drawing.Point(566, 58);
+            this.btnUserManager.Location = new System.Drawing.Point(566, 76);
+            this.btnUserManager.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnUserManager.Name = "btnUserManager";
-            this.btnUserManager.Size = new System.Drawing.Size(125, 42);
+            this.btnUserManager.Size = new System.Drawing.Size(125, 55);
             this.btnUserManager.TabIndex = 1;
             this.btnUserManager.Text = "&Users";
             this.btnUserManager.UseVisualStyleBackColor = true;
@@ -60,9 +61,10 @@
             // 
             this.btnLogout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLogout.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnLogout.Location = new System.Drawing.Point(566, 10);
+            this.btnLogout.Location = new System.Drawing.Point(566, 13);
+            this.btnLogout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(125, 42);
+            this.btnLogout.Size = new System.Drawing.Size(125, 55);
             this.btnLogout.TabIndex = 2;
             this.btnLogout.Text = "&Logout";
             this.btnLogout.UseVisualStyleBackColor = true;
@@ -71,9 +73,10 @@
             // btnEditor
             // 
             this.btnEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEditor.Location = new System.Drawing.Point(566, 106);
+            this.btnEditor.Location = new System.Drawing.Point(566, 139);
+            this.btnEditor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnEditor.Name = "btnEditor";
-            this.btnEditor.Size = new System.Drawing.Size(125, 42);
+            this.btnEditor.Size = new System.Drawing.Size(125, 55);
             this.btnEditor.TabIndex = 3;
             this.btnEditor.Text = "&Editor";
             this.btnEditor.UseVisualStyleBackColor = true;
@@ -81,18 +84,18 @@
             // 
             // frmDashboard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnLogout;
-            this.ClientSize = new System.Drawing.Size(703, 359);
+            this.ClientSize = new System.Drawing.Size(703, 472);
             this.ControlBox = false;
             this.Controls.Add(this.btnEditor);
             this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.btnUserManager);
             this.Controls.Add(this.lblWelcome);
-            this.Font = new System.Drawing.Font("Special Elite", 14.25F);
+            this.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmDashboard";

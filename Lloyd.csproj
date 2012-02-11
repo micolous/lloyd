@@ -150,6 +150,10 @@
     </Compile>
     <None Include="app.config" />
     <Compile Include="Database\Mappings\SkuMap.cs" />
+    <None Include="Properties\DataSources\Lloyd.Database.Entities.Beverage.datasource" />
+    <None Include="Properties\DataSources\Lloyd.Database.Entities.Sku.datasource" />
+    <None Include="Properties\DataSources\Lloyd.Database.Entities.Stock.datasource" />
+    <None Include="Properties\DataSources\Lloyd.Database.Entities.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

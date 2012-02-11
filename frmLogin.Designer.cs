@@ -40,11 +40,11 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.Font = new System.Drawing.Font("Special Elite", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 9);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(13, 11);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(431, 60);
+            this.label1.Size = new System.Drawing.Size(432, 78);
             this.label1.TabIndex = 0;
             this.label1.Text = "Good evening sir, who might I be speaking with?";
             // 
@@ -53,7 +53,8 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = global::Lloyd.Properties.Resources.lloyd;
-            this.pictureBox1.Location = new System.Drawing.Point(455, 8);
+            this.pictureBox1.Location = new System.Drawing.Point(455, 9);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(200, 327);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -63,9 +64,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 69);
+            this.label2.Location = new System.Drawing.Point(15, 89);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(415, 19);
+            this.label2.Size = new System.Drawing.Size(358, 25);
             this.label2.TabIndex = 2;
             this.label2.Text = "Please scan your access card to continue.";
             // 
@@ -74,10 +76,11 @@
             this.txtAccessCard.AcceptsReturn = true;
             this.txtAccessCard.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAccessCard.Location = new System.Drawing.Point(21, 149);
+            this.txtAccessCard.Location = new System.Drawing.Point(20, 172);
+            this.txtAccessCard.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtAccessCard.Name = "txtAccessCard";
             this.txtAccessCard.PasswordChar = '#';
-            this.txtAccessCard.Size = new System.Drawing.Size(425, 26);
+            this.txtAccessCard.Size = new System.Drawing.Size(425, 33);
             this.txtAccessCard.TabIndex = 0;
             this.txtAccessCard.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAccessCard_KeyPress);
             // 
@@ -85,9 +88,10 @@
             // 
             this.btnQuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnQuit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnQuit.Location = new System.Drawing.Point(20, 302);
+            this.btnQuit.Location = new System.Drawing.Point(20, 292);
+            this.btnQuit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnQuit.Name = "btnQuit";
-            this.btnQuit.Size = new System.Drawing.Size(76, 33);
+            this.btnQuit.Size = new System.Drawing.Size(75, 44);
             this.btnQuit.TabIndex = 3;
             this.btnQuit.TabStop = false;
             this.btnQuit.Text = "&Quit";
@@ -96,19 +100,19 @@
             // 
             // frmLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnQuit;
-            this.ClientSize = new System.Drawing.Size(667, 349);
+            this.ClientSize = new System.Drawing.Size(667, 346);
             this.ControlBox = false;
             this.Controls.Add(this.btnQuit);
             this.Controls.Add(this.txtAccessCard);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
-            this.Font = new System.Drawing.Font("Special Elite", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MinimizeBox = false;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

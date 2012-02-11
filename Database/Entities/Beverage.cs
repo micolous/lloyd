@@ -56,13 +56,26 @@ namespace Lloyd.Database.Entities
                 StandardDrink sd = StandardDrink.GetForCurrentLocale();
                 return sd.StandardDrinksByPercent(PercentAlcohol, Volume);
             }
+
+            set
+            {
+                StandardDrink sd = StandardDrink.GetForCurrentLocale();
+                PercentAlcohol = sd.PercentAlcoholByStandardDrinkVolume(value, Volume);
+            }
+
         }
 
         [XmlIgnore]
-        public virtual double VolumeAlcohol { get { return (PercentAlcohol / 100) * Volume; } }
+        public virtual double VolumeAlcohol {
+            get { return (PercentAlcohol / 100) * Volume; }
+            set { PercentAlcohol = (value / Volume) * 100; }
+        }
 
         [XmlIgnore]
-        public virtual double MassAlcohol { get { return VolumeAlcohol * StandardDrink.alcohol_density_g_ml; } }
+        public virtual double MassAlcohol {
+            get { return VolumeAlcohol * StandardDrink.alcohol_density_g_ml; }
+            set { VolumeAlcohol = value / StandardDrink.alcohol_density_g_ml; }
+        }
 
         [XmlArray(ElementName="Skus")]
         public virtual Sku[] SkuArray
