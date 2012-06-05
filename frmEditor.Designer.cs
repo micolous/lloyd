@@ -184,6 +184,7 @@
             this.lvBeverages.TabIndex = 0;
             this.lvBeverages.UseCompatibleStateImageBehavior = false;
             this.lvBeverages.View = System.Windows.Forms.View.Details;
+            this.lvBeverages.ItemActivate += new System.EventHandler(this.lvBeverages_ItemActivate);
             this.lvBeverages.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lvBeverages_ItemSelectionChanged);
             // 
             // frmEditor

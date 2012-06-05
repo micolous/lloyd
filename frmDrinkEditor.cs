@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Lloyd.Database.Entities;
+using NHibernate.Criterion;
+using NHibernate;
 
 namespace Lloyd
 {
@@ -16,12 +18,17 @@ namespace Lloyd
 
         Beverage b;
         bool create_mode;
+        ISession session = Program.factory.OpenSession();
+        ITransaction transaction;
+        bool saved = true;
+        BindingSource bsSKU = null;
 
         public frmDrinkEditor(Beverage b )
         {
             InitializeComponent();
             cboAlcoholMode.SelectedIndex = 0;
 
+            this.transaction = this.session.BeginTransaction();
             this.b = b;
 
             create_mode = (this.b == null);
@@ -30,8 +37,13 @@ namespace Lloyd
             if (create_mode)
             {
                 this.b = new Beverage();
+                this.b.IsEnabled = true;
 
+                // hide skus because we can't create them until an object exists.
+                dgvSKUs.Enabled = dgvSKUs.Visible = groupSKU.Visible = groupSKU.Enabled = false;
+                Height -= groupSKU.Height;
 
+                Text = String.Format(Text, "New Drink");
             }
             else
             {
@@ -39,10 +51,37 @@ namespace Lloyd
                 nudVolume.Value = (decimal)this.b.Volume;
                 nudAlcohol.Value = (decimal)this.b.PercentAlcohol;
 
+                bsSKU = new BindingSource();
+
+                var ls = session.CreateCriteria(typeof(Sku))
+                    .Add(Restrictions.Eq("Beverage", this.b))
+                    .List<Sku>();
+                bsSKU.DataSource = ls;
+                bsSKU.AllowNew = true;
+
+                //bsSKU.ListChanged += new ListChangedEventHandler(bsSKU_ListChanged);
+                bsSKU.CurrentChanged += new EventHandler(bsSKU_CurrentChanged);
+                
+                dgvSKUs.DataSource = bsSKU;
                 skuBindingSource.Filter = string.Format("Beverage = '{0}'", this.b.Id);
+                Text = String.Format(Text, this.b.Name + " (" + this.b.Id + ")");
             }
 
+            saved = true;
+
         }
+
+        void bsSKU_CurrentChanged(object sender, EventArgs e)
+        {
+            BindingSource o = (BindingSource)sender;
+            if (o.Current != null)
+            {
+                Sku s = (Sku)o.Current;
+                s.Beverage = this.b;
+                saved = false;
+            }
+        }
+
 
         private void cboAlcoholMode_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -96,6 +135,7 @@ namespace Lloyd
         {
             CalculateAlcoholBounds();
             b.Volume = (long)nudVolume.Value;
+            saved = false;
         }
 
         private void frmDrinkEditor_Load(object sender, EventArgs e)
@@ -123,10 +163,65 @@ namespace Lloyd
                 case 3: // standard drinks
                     b.StandardDrinks = (double)nudAlcohol.Value;
                     break;
-
-
-
             }
+            saved = false;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            // name isn't populated onto the object automatically.
+            txtName.Text = txtName.Text.Trim();
+            if (string.IsNullOrEmpty(txtName.Text))
+            {
+                MessageBox.Show(this, "You must enter a name for the beverage.", "Lloyd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            this.b.Name = txtName.Text;
+
+            // save it.
+            session.SaveOrUpdate(this.b);
+            
+            // save skus
+            if (bsSKU != null) {
+                foreach (Sku s in bsSKU.List)
+                {
+                    session.SaveOrUpdate(s);
+                }
+            }
+            // commit transaction
+            transaction.Commit();
+            saved = true;
+            Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void frmDrinkEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!saved && MessageBox.Show(this, "Are you sure you want to cancel?  Unsaved changes will be lost.", "Lloyd", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+            else if (!saved)
+            {
+                transaction.Rollback();
+            }
+                
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            saved = false;
+        }
+
+        private void dgvSKUs_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["Quantity"].Value = 1;
+            e.Row.Cells["Enabled"].Value = true;
         }
     }
 }

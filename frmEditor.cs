@@ -154,8 +154,12 @@ namespace Lloyd
             RedrawDrinksList();
         }
 
+
         private void editDrinkToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            editDrink();
+        }
+        private void editDrink() {
             if (lvBeverages.SelectedItems.Count == 1)
             {
                 frmDrinkEditor f = new frmDrinkEditor((Beverage)lvBeverages.SelectedItems[0].Tag);
@@ -167,6 +171,11 @@ namespace Lloyd
         private void lvBeverages_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             editDrinkToolStripMenuItem.Enabled = lvBeverages.SelectedItems.Count == 1;
+        }
+
+        private void lvBeverages_ItemActivate(object sender, EventArgs e)
+        {
+            
         }
 
     }

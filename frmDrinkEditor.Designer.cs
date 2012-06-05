@@ -39,23 +39,25 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.groupSKU = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Barcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isEnabledDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.skuBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dgvSKUs = new System.Windows.Forms.DataGridView();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.skuBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Barcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Enabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAlcohol)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudVolume)).BeginInit();
             this.groupSKU.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSKUs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.skuBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.nudAlcohol);
             this.groupBox1.Controls.Add(this.lblAlcohol);
             this.groupBox1.Controls.Add(this.cboAlcoholMode);
@@ -143,6 +145,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(208, 20);
             this.txtName.TabIndex = 1;
+            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // lblName
             // 
@@ -155,7 +158,10 @@
             // 
             // groupSKU
             // 
-            this.groupSKU.Controls.Add(this.dataGridView1);
+            this.groupSKU.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupSKU.Controls.Add(this.dgvSKUs);
             this.groupSKU.Location = new System.Drawing.Point(12, 128);
             this.groupSKU.Name = "groupSKU";
             this.groupSKU.Size = new System.Drawing.Size(317, 229);
@@ -163,20 +169,49 @@
             this.groupSKU.TabStop = false;
             this.groupSKU.Text = "SKUs";
             // 
-            // dataGridView1
+            // dgvSKUs
             // 
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvSKUs.AutoGenerateColumns = false;
+            this.dgvSKUs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSKUs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Barcode,
             this.Quantity,
-            this.isEnabledDataGridViewCheckBoxColumn});
-            this.dataGridView1.DataSource = this.skuBindingSource;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(311, 210);
-            this.dataGridView1.TabIndex = 0;
+            this.Enabled});
+            this.dgvSKUs.DataSource = this.skuBindingSource;
+            this.dgvSKUs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvSKUs.Location = new System.Drawing.Point(3, 16);
+            this.dgvSKUs.Name = "dgvSKUs";
+            this.dgvSKUs.Size = new System.Drawing.Size(311, 210);
+            this.dgvSKUs.TabIndex = 0;
+            this.dgvSKUs.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvSKUs_DefaultValuesNeeded);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(254, 360);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 2;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Location = new System.Drawing.Point(173, 360);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // skuBindingSource
+            // 
+            this.skuBindingSource.DataSource = typeof(Lloyd.Database.Entities.Sku);
+            this.skuBindingSource.Filter = "";
+            this.skuBindingSource.Sort = "Id";
             // 
             // Barcode
             // 
@@ -197,39 +232,15 @@
             this.Quantity.ToolTipText = "The quantity of the beverage that is contained this barcoded pack.";
             this.Quantity.Width = 60;
             // 
-            // isEnabledDataGridViewCheckBoxColumn
+            // Enabled
             // 
-            this.isEnabledDataGridViewCheckBoxColumn.DataPropertyName = "IsEnabled";
-            this.isEnabledDataGridViewCheckBoxColumn.FillWeight = 50F;
-            this.isEnabledDataGridViewCheckBoxColumn.HeaderText = "Enabled";
-            this.isEnabledDataGridViewCheckBoxColumn.Name = "isEnabledDataGridViewCheckBoxColumn";
-            this.isEnabledDataGridViewCheckBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.isEnabledDataGridViewCheckBoxColumn.ToolTipText = "Is this item scannable in the interface?";
-            this.isEnabledDataGridViewCheckBoxColumn.Width = 50;
-            // 
-            // skuBindingSource
-            // 
-            this.skuBindingSource.DataSource = typeof(Lloyd.Database.Entities.Sku);
-            this.skuBindingSource.Filter = "";
-            this.skuBindingSource.Sort = "Id";
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(254, 360);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 2;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(173, 360);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 3;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.Enabled.DataPropertyName = "IsEnabled";
+            this.Enabled.FillWeight = 50F;
+            this.Enabled.HeaderText = "Enabled";
+            this.Enabled.Name = "Enabled";
+            this.Enabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Enabled.ToolTipText = "Is this item scannable in the interface?";
+            this.Enabled.Width = 50;
             // 
             // frmDrinkEditor
             // 
@@ -240,15 +251,19 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.groupSKU);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmDrinkEditor";
-            this.Text = "frmDrinkEditor";
+            this.Text = "Drink Editor: {0}";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmDrinkEditor_FormClosing);
             this.Load += new System.EventHandler(this.frmDrinkEditor_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAlcohol)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudVolume)).EndInit();
             this.groupSKU.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSKUs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.skuBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -266,12 +281,12 @@
         private System.Windows.Forms.NumericUpDown nudVolume;
         private System.Windows.Forms.NumericUpDown nudAlcohol;
         private System.Windows.Forms.GroupBox groupSKU;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvSKUs;
         private System.Windows.Forms.BindingSource skuBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Barcode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn isEnabledDataGridViewCheckBoxColumn;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Barcode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Enabled;
     }
 }
