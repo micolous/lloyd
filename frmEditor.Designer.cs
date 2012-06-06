@@ -195,7 +195,10 @@
             this.Controls.Add(this.lvBeverages);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimizeBox = false;
             this.Name = "frmEditor";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "Editor";
             this.Load += new System.EventHandler(this.frmEditor_Load);
             this.menuStrip1.ResumeLayout(false);

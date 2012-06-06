@@ -85,5 +85,10 @@ namespace Lloyd.Database.Entities
                 return Skus.ToArray<Sku>();
             }
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

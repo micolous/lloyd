@@ -18,6 +18,8 @@
 
 using System;
 using System.Xml.Serialization;
+using NHibernate;
+using NHibernate.Criterion;
 
 namespace Lloyd.Database.Entities
 {
@@ -35,5 +37,26 @@ namespace Lloyd.Database.Entities
         [XmlAttribute]
         public virtual bool IsEnabled { get; set; }
 
+        public static Sku GetSkuByBarcode(ISessionFactory factory, string barcode)
+        {
+            using (var session = factory.OpenSession())
+            {
+                var r = session.CreateCriteria(typeof(Sku))
+                    .Add(
+                        Restrictions.Eq("Barcode", barcode)
+                    )
+                    .SetFetchMode("Beverage", FetchMode.Eager)
+                    .List<Sku>();
+
+                if (r.Count == 1)
+                {
+                    return r[0];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
 }

@@ -30,6 +30,7 @@ namespace Lloyd.Database.Mappings
             Map(x => x.Cost);
             Map(x => x.AddedAt).Not.Nullable();
             Map(x => x.ConsumedAt).Nullable();
+            Map(x => x.RequiresPermission);
 
             References(x => x.Beverage).Not.Nullable();
             References(x => x.Consumer).Nullable();

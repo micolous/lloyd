@@ -29,12 +29,13 @@ namespace Lloyd
     partial class frmDashboard : Form
     {
         bool admin;
+        User u;
         public frmDashboard(User u)
         {
             InitializeComponent();
 
             lblWelcome.Text = string.Format(lblWelcome.Text, u.Name);
-
+            this.u = u;
             admin = u.IsAdmin;
 
             btnUserManager.Enabled = admin;
@@ -66,6 +67,44 @@ namespace Lloyd
                 frmEditor f = new frmEditor();
                 f.ShowDialog(this);
             }
+        }
+
+        private void txtBarcode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                e.Handled = true;
+
+                // lookup drink
+                Sku s = Sku.GetSkuByBarcode(Program.factory.SessionFactory, txtBarcode.Text);
+
+                if (s == null)
+                {
+                    lblScannedDrink.Text = "Unknown item " + txtBarcode.Text;
+                }
+                else if (!s.IsEnabled)
+                {
+                    lblScannedDrink.Text = "Disabled item " + txtBarcode.Text;
+                }
+                else
+                {
+                    lblScannedDrink.Text = string.Format("{0} unit(s) of {1}, {2} mL",
+                        s.Quantity,
+                        s.Beverage.Name,
+                        s.Beverage.Volume
+                    );
+
+
+                }
+                txtBarcode.Text = "";
+            }
+        }
+
+        private void btnCheckIn_Click(object sender, EventArgs e)
+        {
+            frmCheckIn f = new frmCheckIn(u);
+            f.ShowDialog(this);
+
         }
     }
 }

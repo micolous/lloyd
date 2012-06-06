@@ -119,6 +119,9 @@ namespace Lloyd.Database.Entities
             }
         }
 
-        
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -87,6 +87,12 @@
     <Compile Include="frmAddUser.Designer.cs">
       <DependentUpon>frmAddUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCheckIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCheckIn.Designer.cs">
+      <DependentUpon>frmCheckIn.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     <Compile Include="StandardDrink.cs" />
     <EmbeddedResource Include="frmAddUser.resx">
       <DependentUpon>frmAddUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCheckIn.resx">
+      <DependentUpon>frmCheckIn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDashboard.resx">
       <DependentUpon>frmDashboard.cs</DependentUpon>

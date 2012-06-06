@@ -172,7 +172,10 @@
             this.Controls.Add(this.lvUserList);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimizeBox = false;
             this.Name = "frmUserManager";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lloyd - User Manager";
             this.Load += new System.EventHandler(this.frmUserManager_Load);

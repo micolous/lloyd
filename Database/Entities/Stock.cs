@@ -29,6 +29,6 @@ namespace Lloyd.Database.Entities
         public virtual DateTime AddedAt { get; set; }
         public virtual User Consumer { get; set; }
         public virtual DateTime ConsumedAt { get; set; }
-
+        public virtual bool RequiresPermission { get; set; }
     }
 }

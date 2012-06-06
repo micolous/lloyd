@@ -83,7 +83,7 @@ namespace Lloyd
                 
                 
                 dgvSKUs.DataSource = bsSKU;
-                skuBindingSource.Filter = string.Format("Beverage = '{0}'", this.b.Id);
+                //skuBindingSource.Filter = string.Format("Beverage = '{0}'", this.b.Id);
                 Text = String.Format(Text, this.b.Name + " (" + this.b.Id + ")");
             }
 
