@@ -42,6 +42,7 @@
             this.txtChangeAccessCard = new System.Windows.Forms.ToolStripTextBox();
             this.administratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,7 +87,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addUserToolStripMenuItem,
-            this.changeUserToolStripMenuItem});
+            this.changeUserToolStripMenuItem,
+            this.editUserToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(484, 25);
@@ -111,6 +113,7 @@
             this.changeUserToolStripMenuItem.Name = "changeUserToolStripMenuItem";
             this.changeUserToolStripMenuItem.Size = new System.Drawing.Size(98, 21);
             this.changeUserToolStripMenuItem.Text = "Change User";
+            this.changeUserToolStripMenuItem.Visible = false;
             // 
             // renameToolStripMenuItem
             // 
@@ -154,6 +157,13 @@
             this.disableAccountToolStripMenuItem.Text = "Enable/Disable Account";
             this.disableAccountToolStripMenuItem.Click += new System.EventHandler(this.disableAccountToolStripMenuItem_Click);
             // 
+            // editUserToolStripMenuItem
+            // 
+            this.editUserToolStripMenuItem.Name = "editUserToolStripMenuItem";
+            this.editUserToolStripMenuItem.Size = new System.Drawing.Size(75, 21);
+            this.editUserToolStripMenuItem.Text = "Edit User";
+            this.editUserToolStripMenuItem.Click += new System.EventHandler(this.editUserToolStripMenuItem_Click);
+            // 
             // frmUserManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -189,5 +199,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ToolStripTextBox txtRenameUser;
         private System.Windows.Forms.ToolStripTextBox txtChangeAccessCard;
+        private System.Windows.Forms.ToolStripMenuItem editUserToolStripMenuItem;
     }
 }

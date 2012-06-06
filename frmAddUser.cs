@@ -28,9 +28,29 @@ namespace Lloyd
 {
     partial class frmAddUser : Form
     {
-        public frmAddUser()
+        User u;
+        bool newitem;
+
+        public frmAddUser() : this(null) { }
+        public frmAddUser(User u)
         {
             InitializeComponent();
+
+            this.u = u;
+            newitem = u == null;
+
+            if (u != null)
+            {
+                txtName.Text = u.Name;
+                chkAdmin.Checked = u.IsAdmin;
+                chkBiologicallyMale.Checked = u.IsBiologicallyMale;
+                nudHeight.Value = u.Height;
+                nudWeight.Value = u.Weight;
+
+            }
+
+
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -51,12 +71,13 @@ namespace Lloyd
 
         void Revalidate()
         {
-            btnAccept.Enabled = (txtName.Text.Length > 0 && txtAccessKey.Text.Length > 0);
+            btnAccept.Enabled = (txtName.Text.Length > 0 && (!newitem || string.IsNullOrEmpty(txtAccessKey.Text)));
 
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
+
             // add the user to the system.
             try
             {
@@ -64,21 +85,40 @@ namespace Lloyd
                 {
                     using (var transaction = session.BeginTransaction())
                     {
-                        var adminUser = new User { Name = txtName.Text, IsEnabled = true, IsAdmin = chkAdmin.Checked, LastAccess = DateTime.MinValue };
-                        adminUser.EncodeAccessKey(txtAccessKey.Text);
-                        session.SaveOrUpdate(adminUser);
+                        if (u == null)
+                        {
+                            u = new User();
+                            u.LastAccess = DateTime.MinValue;
+                            u.IsEnabled = true;
+                        }
+
+                        u.Name = txtName.Text;
+                        u.IsAdmin = chkAdmin.Checked;
+                        u.Weight = (int)nudWeight.Value;
+                        u.Height = (int)nudHeight.Value;
+                        u.IsBiologicallyMale = chkBiologicallyMale.Checked;
+                        if (!string.IsNullOrEmpty(txtAccessKey.Text)) {
+                            u.EncodeAccessKey(txtAccessKey.Text);
+                        }
+
+
+                        session.SaveOrUpdate(u);
 
                         transaction.Commit();
+
                     }
                 }
 
-                MessageBox.Show("Created user!");
+                //MessageBox.Show("Created user!");
                 Close();
             }
             catch (Exception)
             {
                 MessageBox.Show("That username or access key is in use by another user.  Please check that this is not a duplicate and try again.");
             }
+
+
+
         }
     }
 }

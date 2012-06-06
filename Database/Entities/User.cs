@@ -56,6 +56,21 @@ namespace Lloyd.Database.Entities
         public virtual bool IsEnabled { get; set; }
 
         /// <summary>
+        /// Is the user biologically male?  This is used to approximate BAC.
+        /// </summary>
+        public virtual bool IsBiologicallyMale { get; set; }
+
+        /// <summary>
+        /// The user's weight, in kilograms.
+        /// </summary>
+        public virtual int Weight { get; set; }
+
+        /// <summary>
+        /// The user's height, in centimetres.
+        /// </summary>
+        public virtual int Height { get; set; }
+
+        /// <summary>
         /// Computes an SHA1 checksum of the input string.
         /// </summary>
         /// <param name="input">The string to compute the checksum for.</param>

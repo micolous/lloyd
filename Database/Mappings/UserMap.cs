@@ -32,6 +32,10 @@ namespace Lloyd.Database.Mappings
             Map(x => x.IsAdmin);
             Map(x => x.LastAccess);
             Map(x => x.IsEnabled);
+
+            Map(x => x.IsBiologicallyMale);
+            Map(x => x.Weight);
+            Map(x => x.Height); 
         }
     }
 }

@@ -99,7 +99,8 @@ namespace Lloyd
 
         private void lvUserList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            changeUserToolStripMenuItem.Enabled = (lvUserList.SelectedItems.Count == 1);
+            editUserToolStripMenuItem.Enabled = 
+                changeUserToolStripMenuItem.Enabled = (lvUserList.SelectedItems.Count == 1);
             changeUserToolStripMenuItem.HideDropDown();
 
             if (lvUserList.SelectedItems.Count == 1)
@@ -176,6 +177,14 @@ namespace Lloyd
                 RedrawUserList();
 
             }
+        }
+
+        private void editUserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            User u = GetSelectedUser();
+            frmAddUser f = new frmAddUser(u);
+            f.ShowDialog(this);
+            RedrawUserList();
         }
 
     }
