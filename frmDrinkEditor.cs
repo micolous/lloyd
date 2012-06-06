@@ -28,6 +28,7 @@ namespace Lloyd
             InitializeComponent();
             cboAlcoholMode.SelectedIndex = 0;
 
+            this.session.FlushMode = FlushMode.Commit;
             this.transaction = this.session.BeginTransaction();
             this.b = b;
 
@@ -61,6 +62,7 @@ namespace Lloyd
 
                 //bsSKU.ListChanged += new ListChangedEventHandler(bsSKU_ListChanged);
                 bsSKU.CurrentChanged += new EventHandler(bsSKU_CurrentChanged);
+                
                 
                 dgvSKUs.DataSource = bsSKU;
                 skuBindingSource.Filter = string.Format("Beverage = '{0}'", this.b.Id);
@@ -184,13 +186,47 @@ namespace Lloyd
             
             // save skus
             if (bsSKU != null) {
+
+                LinkedList<int> currentSKUIDs = new LinkedList<int>();
+
                 foreach (Sku s in bsSKU.List)
-                {
-                    session.SaveOrUpdate(s);
+                {   
+                    try
+                    {
+                        session.SaveOrUpdate(s);
+                        currentSKUIDs.AddLast(s.Id);
+                    }
+                    catch (NHibernate.Exceptions.GenericADOException ex)
+                    {
+                        transaction.Rollback();
+                        transaction.Dispose();
+                        session.Close();
+                        session = Program.factory.OpenSession();
+
+                        // restart transaction
+                        this.transaction = this.session.BeginTransaction();
+
+                        MessageBox.Show(this, string.Format("Error while saving SKU {0}:\r\n{1}", s.Barcode, ex.InnerException.Message), "Lloyd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
+
+                // delete SKUs not in the list.
+                var ls = session.CreateCriteria(typeof(Sku))
+                 .Add(Restrictions.Eq("Beverage", this.b))
+                 .Add(Restrictions.Not(Restrictions.In("Id", currentSKUIDs)))
+                 .List<Sku>();
+                
+                foreach (var dob in ls)
+                    session.Delete(dob);
             }
+
+            
+
+
             // commit transaction
             transaction.Commit();
+            transaction = null;
             saved = true;
             Close();
         }
@@ -206,11 +242,14 @@ namespace Lloyd
             {
                 e.Cancel = true;
             }
-            else if (!saved)
+            else if (transaction != null)
             {
                 transaction.Rollback();
+                transaction = null;
+
             }
-                
+            session.Close();
+
         }
 
         private void txtName_TextChanged(object sender, EventArgs e)

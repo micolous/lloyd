@@ -27,7 +27,7 @@ namespace Lloyd.Database.Mappings
         public SkuMap()
         {
             Id(x => x.Id);
-            Map(x => x.Barcode);
+            Map(x => x.Barcode).Unique().Not.Nullable();
             Map(x => x.IsEnabled);
             Map(x => x.Quantity);
             References(x => x.Beverage);
