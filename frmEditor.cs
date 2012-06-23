@@ -61,7 +61,7 @@ namespace Lloyd
                         string.Format("{0} mL", b.Volume),
                         string.Format("{0:p}", b.PercentAlcohol/100.0),
                         string.Format("{0:0.0}", b.StandardDrinks),
-                        "???",
+                        string.Format("{0}", b.Skus.Count),
                         "???",
                         b.IsEnabled ? "yes" : "no"
                     });
@@ -103,6 +103,11 @@ namespace Lloyd
                 {
                     IList<Beverage> lb = session.CreateCriteria(typeof(Beverage)).List<Beverage>();
                     bd.Beverages = lb.ToArray<Beverage>();
+                    foreach (var b in bd.Beverages)
+                    {
+                        Console.WriteLine(b.SkuArray.Length);
+
+                    }
                 }
 
                 xs.Serialize(fs, bd);

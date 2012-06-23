@@ -32,7 +32,7 @@ namespace Lloyd.Database.Entities
         public virtual Beverage Beverage { get; set; }
         [XmlAttribute]
         public virtual string Barcode { get; set; }
-        [XmlIgnore]
+        [XmlAttribute]
         public virtual uint Quantity { get; set; }
         [XmlAttribute]
         public virtual bool IsEnabled { get; set; }

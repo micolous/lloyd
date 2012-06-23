@@ -13,6 +13,6 @@ namespace Lloyd.Database
     public class BeverageDocument
     {
         [XmlArray]
-        public Beverage[] Beverages { get; set; }
+        public virtual Beverage[] Beverages { get; set; }
     }
 }

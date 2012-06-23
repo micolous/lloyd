@@ -77,7 +77,7 @@ namespace Lloyd.Database.Entities
             set { VolumeAlcohol = value / StandardDrink.alcohol_density_g_ml; }
         }
 
-        [XmlArray(ElementName="Skus")]
+        //[XmlArray(ElementName="SkuA")]
         public virtual Sku[] SkuArray
         {
             get
