@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
-
+using NHibernate.Collection.Generic;
 
 namespace Lloyd.Database.Entities
 {
@@ -77,12 +77,38 @@ namespace Lloyd.Database.Entities
             set { VolumeAlcohol = value / StandardDrink.alcohol_density_g_ml; }
         }
 
-        //[XmlArray(ElementName="SkuA")]
-        public virtual Sku[] SkuArray
+        private bool _falseSku = false;
+
+        /// <summary>
+        /// This member is used by the XML serialiser/deserialiser.
+        /// 
+        /// WARNING: Attempting to use this property to modify the SkuArray in
+        /// place will not work if Skus != null!  This property returns a copy of the actual Sku
+        /// array.  You should avoid repeated calls to this property.
+        /// 
+        /// tl;dr: use "Skus" property to modify the array, DO NOT USE THIS!!!
+        /// </summary>
+        [XmlArray(ElementName="Skus")]
+        public virtual List<Sku> SkuBag
         {
             get
             {
-                return Skus.ToArray<Sku>();
+                if (Skus == null)
+                {
+                    _falseSku = true;
+                    Skus = new List<Sku>();
+                }
+
+                if (_falseSku)
+                {
+                    return (List<Sku>)Skus;
+                }
+                else
+                {
+                    return new List<Sku>(Skus);
+                }
+
+
             }
         }
 

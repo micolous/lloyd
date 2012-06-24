@@ -198,7 +198,10 @@ namespace Lloyd
             }
 
             this.b.Name = txtName.Text;
-
+            if (b.Skus != null)
+            {
+                b.Skus.Clear();
+            }
             // save it.
             session.SaveOrUpdate(this.b);
             
@@ -278,7 +281,7 @@ namespace Lloyd
         private void dgvSKUs_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells["Quantity"].Value = 1;
-            e.Row.Cells["Enabled"].Value = true;
+            e.Row.Cells["IsEnabled"].Value = true;
         }
     }
 }

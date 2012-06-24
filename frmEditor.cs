@@ -51,7 +51,9 @@ namespace Lloyd
 
             using (var session = Program.factory.OpenSession())
             {
-                var lb = session.CreateCriteria(typeof(Beverage)).List<Beverage>();
+                var lb = session.CreateCriteria(typeof(Beverage))
+                    .AddOrder(new NHibernate.Criterion.Order("Name", true))
+                    .List<Beverage>();
                 
 
                 foreach (Beverage b in lb)
@@ -101,13 +103,9 @@ namespace Lloyd
                 // get a list of beverages.
                 using (var session = Program.factory.OpenSession())
                 {
-                    IList<Beverage> lb = session.CreateCriteria(typeof(Beverage)).List<Beverage>();
+                    IList<Beverage> lb = session.CreateCriteria(typeof(Beverage))
+                        .List<Beverage>();
                     bd.Beverages = lb.ToArray<Beverage>();
-                    foreach (var b in bd.Beverages)
-                    {
-                        Console.WriteLine(b.SkuArray.Length);
-
-                    }
                 }
 
                 xs.Serialize(fs, bd);
@@ -133,7 +131,7 @@ namespace Lloyd
             {
                 FileStream fs = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read);
                 XmlSerializer xs = new XmlSerializer(typeof(BeverageDocument));
-
+                
                 BeverageDocument bd;
                 try
                 {
@@ -157,7 +155,15 @@ namespace Lloyd
                         foreach (Beverage b in bd.Beverages)
                         {
                             b.IsEnabled = true;
+
+                            // copy out skus
+                            IList<Sku> ls = new List<Sku>(b.SkuBag);
                             session.SaveOrUpdate(b);
+                            foreach (Sku s in ls)
+                            {
+                                s.Beverage = b;
+                                session.SaveOrUpdate(s);
+                            }
                         }
                         transaction.Commit();
                     }

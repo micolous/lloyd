@@ -40,12 +40,12 @@
             this.lblName = new System.Windows.Forms.Label();
             this.groupSKU = new System.Windows.Forms.GroupBox();
             this.dgvSKUs = new System.Windows.Forms.DataGridView();
+            this.skuBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.skuBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Barcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Enabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IsEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAlcohol)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudVolume)).BeginInit();
@@ -176,7 +176,7 @@
             this.dgvSKUs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Barcode,
             this.Quantity,
-            this.Enabled});
+            this.IsEnabled});
             this.dgvSKUs.DataSource = this.skuBindingSource;
             this.dgvSKUs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSKUs.Location = new System.Drawing.Point(3, 16);
@@ -184,6 +184,12 @@
             this.dgvSKUs.Size = new System.Drawing.Size(311, 210);
             this.dgvSKUs.TabIndex = 0;
             this.dgvSKUs.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvSKUs_DefaultValuesNeeded);
+            // 
+            // skuBindingSource
+            // 
+            this.skuBindingSource.DataSource = typeof(Lloyd.Database.Entities.Sku);
+            this.skuBindingSource.Filter = "";
+            this.skuBindingSource.Sort = "Id";
             // 
             // btnSave
             // 
@@ -207,12 +213,6 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // skuBindingSource
-            // 
-            this.skuBindingSource.DataSource = typeof(Lloyd.Database.Entities.Sku);
-            this.skuBindingSource.Filter = "";
-            this.skuBindingSource.Sort = "Id";
-            // 
             // Barcode
             // 
             this.Barcode.DataPropertyName = "Barcode";
@@ -232,15 +232,15 @@
             this.Quantity.ToolTipText = "The quantity of the beverage that is contained this barcoded pack.";
             this.Quantity.Width = 60;
             // 
-            // Enabled
+            // IsEnabled
             // 
-            this.Enabled.DataPropertyName = "IsEnabled";
-            this.Enabled.FillWeight = 50F;
-            this.Enabled.HeaderText = "Enabled";
-            this.Enabled.Name = "Enabled";
-            this.Enabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Enabled.ToolTipText = "Is this item scannable in the interface?";
-            this.Enabled.Width = 50;
+            this.IsEnabled.DataPropertyName = "IsEnabled";
+            this.IsEnabled.FillWeight = 50F;
+            this.IsEnabled.HeaderText = "Enabled";
+            this.IsEnabled.Name = "IsEnabled";
+            this.IsEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.IsEnabled.ToolTipText = "Is this item scannable in the interface?";
+            this.IsEnabled.Width = 50;
             // 
             // frmDrinkEditor
             // 
@@ -287,6 +287,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.DataGridViewTextBoxColumn Barcode;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Enabled;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsEnabled;
     }
 }

@@ -32,7 +32,8 @@ namespace Lloyd.Database.Mappings
             Map(x => x.IsEnabled);
             HasMany(x => x.Skus)
                 .Inverse()
-                .Cascade.All();
+                .Cascade.All()
+                .Not.LazyLoad();
         }
     }
 }
